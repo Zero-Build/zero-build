@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+   font-family: "Geist", sans-serif;
+}
+p, button, div{
+     font-family: "Geist", sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+     font-family: "Geist", sans-serif;
+}
+a{
+     font-family: "Geist", sans-serif;
+}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.hide-scrollbar {
+  overflow: hidden; /* Hide all overflow (default behavior) */
+}
+
+.hide-scrollbar::-webkit-scrollbar,
+.hide-scrollbar::-moz-scrollbar {
+  display: none; /* Hide the scrollbar */
+}
+
+/* Added CSS for the .scrollbar-hidden class */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hidden .max-w-2xl {
+  overflow: hidden;
+}
+.recharts-label {
+  font-size: 12px;
+}
+.recharts-legend-wrapper {
+  bottom: -5px !important;
+}
+
+.navLink .menuItem::before {
+  position: absolute;
+  content: "";
+  bottom: 0px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #484ab7;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease 0s;
+}
+.navLink a:hover .menuItem::before {
+  visibility: visible;
+  opacity: 1;
+  width: 100%;
+}
+.navLink .activeMenuItem::before {
+  visibility: visible;
+  opacity: 1;
+  width: 100%;
+}
+.service-body-content h2{
+  font-size: 28px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.service-body-content h2 strong{
+  font-weight: bold;
+}
+.service-body-content h1{
+  font-size: 32px;
+}
+.service-body-content p{
+  font-size: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+.project-slider .swiper-button-prev {
+    left: auto;
+    right: 50px;
+}
+.project-slider .swiper-button-prev::after {
+  display:none;
+}
+.project-slider .swiper-button-next {
+    left: auto;
+    right: 15px;
+}
+.project-slider .swiper-button-next::after {
+  display:none;
+}
+.project-slider::before{
+  z-index: 2;
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        width: 5rem;
+        height: 100%;
+        background-image: linear-gradient(90deg, #ffffff 15%, transparent 100%);
+}
+.project-slider::after{
+        z-index: 2;
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 5rem;
+        height: 100%;
+        background-image: linear-gradient(270deg, #ffffff 15%, transparent 100%);
+    }
+.js-plotly-plot .plotly .modebar-group{
+  display: flex!important;
+}
+#observability-chart .updatemenu-button:nth-child(1) .updatemenu-item-rect, #observability-chart .updatemenu-button:nth-child(2) .updatemenu-item-rect{
+  fill: #484ab7!important;
+
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+#observability-chart .updatemenu-button:nth-child(1)  .updatemenu-item-text, #observability-chart .updatemenu-button:nth-child(2) .updatemenu-item-text{
+  fill: white!important;
+}
+ .plotlyjsicon{
+  display: none!important;
+
+}
+#observability-chart .main-svg{
+  background-color: transparent!important;
+  width: 100%;
+}
+.js-plotly-plot{
+  display: flex;
+  margin: 0px auto;
+}
+.js-plotly-plot .plotly .modebar.vertical{
+  flex-flow:nowrap!important;
+}
+.service-body-content ul{
+  list-style: disc;
+  padding-left: 18px;
+  font-size: 20px;
+  margin: 15px 0px;
+}
+.detail-accordian ul{
+    font-size: 20px;
+}
+.service-body-content p strong{
+  margin-bottom: 15px;
+  display: block;
+}
+ 
+/* Accordion styles */
+.accordion-item {
+  transition: all 0.3s ease-in-out;
+}
+
+.accordion-content {
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.accordion-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(72, 74, 183, 0.2);
+}
+
+@media only screen and (max-width: 600px) {
+ .project-slider::before{
+left:-35px;
+}
+.project-slider::after{
+  right:-35px;
+}
+}
