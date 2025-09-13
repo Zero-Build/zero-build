@@ -48,7 +48,7 @@ const FloatingDockMobile = ({
         {open && (
           <motion.div
             layoutId="nav"
-            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
+            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2 px-3"
           >
             {items.map((item, idx) => (
               <motion.div
@@ -71,9 +71,9 @@ const FloatingDockMobile = ({
                   target="_blank"
                   href={item.href}
                   key={item.title}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#484AB7] dark:bg-neutral-900"
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
+                  <div className="h-4 w-4 float-icon">{item.icon}</div>
                 </a>
               </motion.div>
             ))}
@@ -82,9 +82,9 @@ const FloatingDockMobile = ({
       </AnimatePresence>
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800 ml-3"
       >
-        <IconLayoutNavbarCollapse className="h-[30px] w-[30px] text-neutral-500 dark:text-neutral-400" />
+        <IconLayoutNavbarCollapse className="h-[30px] w-[30px] text-[#484AB7]" />
       </button>
     </div>
   );

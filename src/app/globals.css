@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -20,16 +20,23 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-   font-family: "Geist", sans-serif;
+  font-family: "Geist", sans-serif;
 }
-p, button, div{
-     font-family: "Geist", sans-serif;
+p,
+button,
+div {
+  font-family: "Geist", sans-serif;
 }
-h1, h2, h3, h4, h5, h6{
-     font-family: "Geist", sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Geist", sans-serif;
 }
-a{
-     font-family: "Geist", sans-serif;
+a {
+  font-family: "Geist", sans-serif;
 }
 @layer utilities {
   .text-balance {
@@ -40,7 +47,9 @@ a{
 .hide-scrollbar {
   overflow: hidden; /* Hide all overflow (default behavior) */
 }
-
+.float-icon svg {
+  color: #ffffff;
+}
 .hide-scrollbar::-webkit-scrollbar,
 .hide-scrollbar::-moz-scrollbar {
   display: none; /* Hide the scrollbar */
@@ -88,37 +97,37 @@ a{
   opacity: 1;
   width: 100%;
 }
-.service-body-content h2{
+.service-body-content h2 {
   font-size: 28px;
   margin-top: 15px;
   margin-bottom: 15px;
   font-weight: 600;
 }
-.service-body-content h3{
+.service-body-content h3 {
   font-size: 24px;
   margin-top: 15px;
   margin-bottom: 15px;
   font-weight: 600;
 }
-.service-body-content h5{
+.service-body-content h5 {
   font-size: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
   font-weight: 600;
 }
-.service-body-content h6{
+.service-body-content h6 {
   font-size: 18px;
   margin-top: 15px;
   margin-bottom: 15px;
   font-weight: 600;
 }
-.service-body-content h2 strong{
+.service-body-content h2 strong {
   font-weight: bold;
 }
-.service-body-content h1{
+.service-body-content h1 {
   font-size: 32px;
 }
-.service-body-content p{
+.service-body-content p {
   font-size: 20px;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -126,120 +135,123 @@ a{
 }
 
 .project-slider .swiper-button-prev {
-    left: auto;
-    right: 50px;
+  left: auto;
+  right: 50px;
 }
 .project-slider .swiper-button-prev::after {
-  display:none;
+  display: none;
 }
 .project-slider .swiper-button-next {
-    left: auto;
-    right: 15px;
+  left: auto;
+  right: 15px;
 }
 .project-slider .swiper-button-next::after {
-  display:none;
+  display: none;
 }
-.project-slider::before{
+.project-slider::before {
   z-index: 2;
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        width: 5rem;
-        height: 100%;
-        background-image: linear-gradient(90deg, #ffffff 15%, transparent 100%);
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 5rem;
+  height: 100%;
+  background-image: linear-gradient(90deg, #ffffff 15%, transparent 100%);
 }
-.project-slider::after{
-        z-index: 2;
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 5rem;
-        height: 100%;
-        background-image: linear-gradient(270deg, #ffffff 15%, transparent 100%);
-    }
-.js-plotly-plot .plotly .modebar-group{
-  display: flex!important;
+.project-slider::after {
+  z-index: 2;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5rem;
+  height: 100%;
+  background-image: linear-gradient(270deg, #ffffff 15%, transparent 100%);
 }
-#observability-chart .updatemenu-button:nth-child(1) .updatemenu-item-rect, #observability-chart .updatemenu-button:nth-child(2) .updatemenu-item-rect{
-  fill: #484ab7!important;
+.js-plotly-plot .plotly .modebar-group {
+  display: flex !important;
+}
+#observability-chart .updatemenu-button:nth-child(1) .updatemenu-item-rect,
+#observability-chart .updatemenu-button:nth-child(2) .updatemenu-item-rect {
+  fill: #484ab7 !important;
 
   border-radius: 4px;
   padding: 5px 10px;
 }
-#observability-chart .updatemenu-button:nth-child(1)  .updatemenu-item-text, #observability-chart .updatemenu-button:nth-child(2) .updatemenu-item-text{
-  fill: white!important;
+#observability-chart .updatemenu-button:nth-child(1) .updatemenu-item-text,
+#observability-chart .updatemenu-button:nth-child(2) .updatemenu-item-text {
+  fill: white !important;
 }
- .plotlyjsicon{
-  display: none!important;
-
+.plotlyjsicon {
+  display: none !important;
 }
-#observability-chart .main-svg{
-  background-color: transparent!important;
+#observability-chart .main-svg {
+  background-color: transparent !important;
   width: 100%;
 }
-.js-plotly-plot{
+.js-plotly-plot {
   display: flex;
   margin: 0px auto;
 }
-.js-plotly-plot .plotly .modebar.vertical{
-  flex-flow:nowrap!important;
+.js-plotly-plot .plotly .modebar.vertical {
+  flex-flow: nowrap !important;
 }
-.service-body-content ul{
+.service-body-content ul {
   list-style: disc;
   padding-left: 18px;
   font-size: 20px;
   margin: 15px 0px;
 }
-.detail-accordian ul{
-    font-size: 20px;
+.detail-accordian ul {
+  font-size: 20px;
 }
-.service-body-content p strong{
+.service-body-content p strong {
   margin-bottom: 15px;
   display: block;
 }
- 
+
 /* Accordion styles */
 .accordion-item {
   transition: all 0.3s ease-in-out;
 }
 
 .accordion-content {
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition:
+    max-height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
 }
 
 .accordion-button:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(72, 74, 183, 0.2);
 }
-.polarsublayer.radial-axis{
-  display: none!important;
+.polarsublayer.radial-axis {
+  display: none !important;
 }
-.angularaxistick{
-  display: none!important;
+.angularaxistick {
+  display: none !important;
 }
 @media only screen and (max-width: 600px) {
- .project-slider::before{
-left:-35px;
-}
-.project-slider::after{
-  right:-35px;
-}
-.service-body-content h2{
-  font-size: 20px;
-}
-.service-body-content p{
-  font-size: 14px;
-}
-.service-body-content p strong {
-    font-weight: 500;
-}
-.service-body-content ul{
+  .project-slider::before {
+    left: -35px;
+  }
+  .project-slider::after {
+    right: -35px;
+  }
+  .service-body-content h2 {
+    font-size: 20px;
+  }
+  .service-body-content p {
     font-size: 14px;
-}
-.service-body-content h3{
+  }
+  .service-body-content p strong {
+    font-weight: 500;
+  }
+  .service-body-content ul {
+    font-size: 14px;
+  }
+  .service-body-content h3 {
     font-size: 18px;
-}
+  }
 }

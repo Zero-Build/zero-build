@@ -153,7 +153,7 @@ const Navbar = ({ className }: { className?: string }) => {
               >
                 <div
                   className={cn(
-                    "w-full px-2 py-3 rounded-[4px]",
+                    "w-full px-3 py-3",
                     isActive(item)
                       ? "text-white font-bold bg-[#484AB7]"
                       : "text-black"

@@ -659,7 +659,7 @@ const ServicesPage = () => {
           </div>
         )}
       </div>
-      <CtaSection />
+    <div className="px-[16px]">  <CtaSection /></div>
     </div>
   );
 };
