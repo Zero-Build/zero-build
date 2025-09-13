@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 import * as XLSX from "xlsx";
 import type { Data, Layout } from "plotly.js";
 import Link from "next/link";
-
+import Image from "next/image";
 interface DataPoint {
   Cost: number;
   Carbon: number;
@@ -325,7 +325,7 @@ const ComplianceHoverCard = ({
       {/* Header with compliance icon and level */}
       <div className="flex items-center gap-3 mb-1 border-b border-gray-100">
         <div className="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center">
-          <img
+          <Image
             src={complianceIcon}
             alt={dataPoint.ComplianceLabel || "Compliance"}
             className="w-8 h-8 object-contain"
@@ -1163,7 +1163,7 @@ export default function ObservabilityChart({
                   }`}
                 >
                   <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-                    <img
+                    <Image
                       src="/assets/Compliance-logos/partl.png"
                       alt="Current regulations"
                       className="w-4 h-4 md:w-6 md:h-6"
@@ -1173,7 +1173,7 @@ export default function ObservabilityChart({
                     </span>
                   </div>
                   <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-                    <img
+                    <Image
                       src="/assets/Compliance-logos/nzr.png"
                       alt="Net Zero ready"
                       className="w-4 h-4 md:w-6 md:h-6"
@@ -1183,7 +1183,7 @@ export default function ObservabilityChart({
                     </span>
                   </div>
                   <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-                    <img
+                    <Image
                       src="/assets/Compliance-logos/phc.png"
                       alt="Passivhaus Classic"
                       className="w-4 h-4 md:w-6 md:h-6"
@@ -1193,7 +1193,7 @@ export default function ObservabilityChart({
                     </span>
                   </div>
                   <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-                    <img
+                    <Image
                       src="/assets/Compliance-logos/php.png"
                       alt="Passivhaus Plus"
                       className="w-4 h-4 md:w-6 md:h-6"
@@ -1203,7 +1203,7 @@ export default function ObservabilityChart({
                     </span>
                   </div>
                   <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-                    <img
+                    <Image
                       src="/assets/Compliance-logos/5CZLogo.png"
                       alt="Five C Zero"
                       className="w-4 h-4 md:w-6 md:h-6"

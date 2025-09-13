@@ -7,20 +7,20 @@ import {
   getResourcesPageBanner,
 } from "@/sanity/sanity-utils";
 import { Resource } from "@/types/Resource";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import CtaSection from "@/components/CtaSection";
 import Accordion from "@/components/ui/accordion";
-import GallerySlider from "@/components/resource/GallerySlider";
+import GallerySlider from "@/components/resource/GallerySlider"; 
 
-// ✅ generateMetadata with correct typing
-export async function generateMetadata(
-  { params }: { params: { slug: string } },
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
-  const { slug } = params; // ❌ no await here
 
-  const resource: Resource | null = await getResource(slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const { slug } = params;
+  const resource: Resource = await getResource(slug);
 
   if (!resource) {
     return {
@@ -44,13 +44,7 @@ export async function generateMetadata(
       siteName: "ZeroBuild",
       images: resource.image?.asset?.url
         ? [{ url: resource.image.asset.url, width: 1200, height: 630 }]
-        : [
-            {
-              url: "/assets/images/coding-background-texture.jpg",
-              width: 1200,
-              height: 630,
-            },
-          ],
+        : [{ url: "/assets/images/coding-background-texture.jpg", width: 1200, height: 630 }],
       locale: "en_GB",
       type: "website",
     },
@@ -65,19 +59,16 @@ export async function generateMetadata(
   };
 }
 
-// ✅ Page with correct props
-export default async function Page({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = params; // ❌ no await here
 
-  const resource: Resource | null = await getResource(slug);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const resource: Resource = await getResource(slug);
   const resourcesPageBanner = await getResourcesPageBanner();
-  const relatedResources =
-    (await getRelatedResources(slug, resource?.purpose, resource?.focusArea)) ||
-    [];
+  const relatedResources = await getRelatedResources(
+    slug,
+    resource?.purpose,
+    resource?.focusArea
+  );
 
   if (!resource) {
     return (
@@ -102,25 +93,39 @@ export default async function Page({
         <h1 className="text-black text-[24px] md:text-[40px] leading-[1.1] font-normal max-w-[740px]">
           {resource.title}
         </h1>
-        {Array.isArray(resource.purpose) ? (
+        {resource.purpose && Array.isArray(resource.purpose) ? (
           <div className="text-[#9b9b9b] text-[18px] md:text-[24px] leading-tight">
             {resource.purpose[0]}
           </div>
         ) : (
-          resource.purpose && (
-            <div className="text-[#9b9b9b] text-[18px] md:text-[24px] leading-tight">
-              {resource.purpose}
-            </div>
-          )
+          <div className="text-[#9b9b9b] text-[18px] md:text-[24px] leading-tight">
+            {resource.purpose}
+          </div>
         )}
       </div>
-
-      {/* ✅ Client Gallery */}
+<div className="hidden md:block">
+     {(resource.gallery?.length ?? 0) > 0 && (
+        <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {(resource.gallery ?? []).map((img, idx) => (
+              <Image
+                key={idx}
+                src={img.asset.url}
+                alt={`Gallery image ${idx + 1}`}
+                width={400}
+                height={300}
+                className="rounded-md object-cover w-full h-auto md:h-[300px] lg:h-[515px] object-top shadow-md"
+              />
+            ))}
+          </div>
+        </div>
+      )}
+</div>
+    <div className="block md:hidden">
       {resource.gallery && resource.gallery.length > 0 && (
         <GallerySlider gallery={resource.gallery} />
       )}
-
-      {/* Content Section */}
+      </div>
       <div className="container grid grid-cols-1 lg:grid-cols-3 gap-[20px] mx-auto pt-[0px] md:pt-[40px] pb-[30px] md:pb-[60px]">
         <div className="lg:col-span-2 space-y-2">
           {resource.image?.asset?.url && (
