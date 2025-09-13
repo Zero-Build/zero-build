@@ -79,7 +79,7 @@ let dataCache: {
 
 // Shimmer loading component
 const LoadingSkeleton: React.FC = () => (
-  <div className="max-w-[1024px] mx-auto px-4 py-8">
+  <div className="container mx-auto px-4 py-8">
 
     {/* All Options Skeleton */}
     <div>
@@ -315,7 +315,7 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
   };
 
   return (
-    <div className="max-w-[1024px] mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <motion.h1 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -532,11 +532,11 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                       )}
                     </Suspense>
                   </div>
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="text-black text-center">
+                  <div className="flex flex-col justify-center items-center mt-[30px]">
+                    <p className="text-black text-center mb-[15px]">
                       {safeText(
                         newBuildResultText,
-                        "The result: A confident, futureproof path to Net Zero from day one."
+                        "The result: A confident, future proof path to Net Zero from day one."
                       )}
                     </p>
                     {newBuildResultCta?.text && newBuildResultCta?.link ? (
@@ -586,8 +586,8 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                       <ChartSkeleton />
                     )}
                   </Suspense>
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="text-black text-center">
+                  <div className="flex flex-col justify-center items-center mt-[30px]">
+                    <p className="text-black text-center mb-[15px]">
                       {retrofitResultText || "The result: a clear pathway to improvement that's aligned with both project's values and Net Zero goals."}
                     </p>
                     <Link href={retrofitButtonUrl || "/projects"} className="mt-[10px] px-6 py-3 rounded-lg font-medium transition-all duration-200 w-full bg-[#484AB7] text-white border-neutral-200 dark:border-[#484AB7] p-5 max-w-[256px] h-[56px] flex items-center justify-center text-[16px] hover:bg-[#3c3f9d] shadow-lg">
@@ -635,8 +635,8 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
 // Memoized MainRadarPlot component
 const MainRadarPlot: React.FC<{ data: OptionData[] }> = React.memo(
   ({ data }) => {
-    const rows = 5;
-    const cols = 10;
+    const rows = 4;
+    const cols = 9;
 
     const makeSubplots = useCallback(() => {
       const subplots: any[] = [];
@@ -715,7 +715,7 @@ const MainRadarPlot: React.FC<{ data: OptionData[] }> = React.memo(
               },
               angularaxis: {
                 visible: true,
-                showticklabels: true,
+                showticklabels: false,
                 tickfont: { size: 9, color: "#333" },
                 tickangle: 0,
                 rotation: 90,
@@ -837,7 +837,7 @@ const SummaryRadarPlot: React.FC<{ data: OptionData[] }> = React.memo(
               },
               angularaxis: {
                 visible: true,
-                tickfont: { size: 13, family: "Arial Black", color: "black" },
+                tickfont: { size: 0, family: "Arial Black", color: "black" },
                 tickangle: 0,
                 rotation: 90,
                 direction: "clockwise" as const,

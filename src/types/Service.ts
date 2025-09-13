@@ -1,3 +1,18 @@
+export interface ServicesBanner {
+  _id: string;
+  title: string;
+  description: string;
+  ctaTitle?: string;
+  ctaButtonText?: string;
+  ctaButtonLink?: string;
+}
+
+export interface CtaBox {
+  ctaTitle: string;
+  ctaButtonText: string;
+  ctaButtonLink: string;
+}
+
 export interface Service {
   _id: string;
   title: string;

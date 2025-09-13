@@ -1,4 +1,5 @@
-export interface AboutPageBanner {
+export interface AboutPage {
+  _updatedAt: any;
   _id: string;
   title: string;
   description: string;
@@ -42,11 +43,7 @@ export interface AboutPageBanner {
   contactButtonUrl?: string;
   linkedinUrl?: string;
   linkedinButtonText?: string;
-
-  // CTA Section
-  ctaTitle?: string;
-  ctaDescription?: string;
-  ctaButtonText?: string;
-  ctaButtonUrl?: string;
-  ctaTypewriterWords?: string[];
+  // Global Section
+  globallyTitle?: string;
+  globallyDescription?: string;
 }

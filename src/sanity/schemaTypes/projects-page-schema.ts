@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity'
 
 export const projectsPageType = defineType({
   name: 'projectsPage',
-  title: 'Projects Page',
+  title: 'Projects Banner',
   type: 'document',
   fields: [
     defineField({
@@ -21,6 +21,7 @@ export const projectsPageType = defineType({
       validation: (Rule) => Rule.required(),
       initialValue: 'From metro systems to concert halls, our sustainability projects demonstrate real-world impact across the built and natural environments.',
     }),
+   
     defineField({
       name: 'isActive',
       title: 'Is Active',
@@ -42,5 +43,3 @@ export const projectsPageType = defineType({
     },
   },
 })
-
-

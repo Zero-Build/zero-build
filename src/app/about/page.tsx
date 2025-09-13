@@ -3,11 +3,19 @@ import TestimonialCard from "@/components/TestimonialCard";
 import AboutProfile from "@/components/about/aboutProfile";
 import ObservabilityRadarChart from "@/components/ObservabilityRadarChart";
 import AboutTop from "@/components/about/aboutTop";
-import AboutCta from "@/components/about/aboutCta"
+import CtaSection from "@/components/CtaSection"
 import type { Metadata } from "next";
-import { client } from "@/sanity/lib/client";
-import { aboutPageQuery, allAboutPagesQuery } from "@/sanity/lib/queries";
-import { AboutPageBanner } from "@/types/aboutPage";
+import { getAbout } from "@/sanity/sanity-utils";
+import { AboutPage } from "@/types/aboutPage";
+import AboutGlobally from "@/components/about/aboutGlobally";
+
+// Force dynamic rendering - CRITICAL for production updates
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+export const revalidate = 0;
+
+// Disable static optimization
+export const runtime = 'nodejs';
 
 export const metadata: Metadata = {
   title: "About ZeroBuild - Net Zero Decarbonisation Experts | Company Overview",
@@ -41,52 +49,119 @@ export const metadata: Metadata = {
 };
 
 async function page() {
-  const aboutPageData: AboutPageBanner | null = await client.fetch(aboutPageQuery);
-  const allAboutPages = await client.fetch(allAboutPagesQuery);
+  const pageStartTime = Date.now();
   
-  // Debug logging to check what data is being fetched
-  console.log('About page data:', aboutPageData);
-  console.log('All about pages:', allAboutPages);
+  try {
+    console.log('🚀 [AboutPage] Starting page render...');
+    console.log('🌍 [AboutPage] Environment:', process.env.NODE_ENV);
+    console.log('⚡ [AboutPage] Dynamic rendering:', 'force-dynamic');
+    
+    // Call the getAbout function directly and handle the array response
+    const aboutPageArray: AboutPage[] = await getAbout();
+    const aboutPageData: AboutPage | null = aboutPageArray?.[0] || null;
 
-  return (
-    <div className="min-h-screen  py-12 pt-[4rem] md:pt-[4rem]">
-     
-      <AboutTop />
-      <ObservabilityRadarChart 
-        newBuildButtonText={aboutPageData?.newBuildButtonText}
-        retrofitButtonText={aboutPageData?.retrofitSelectorButtonText}
+    const pageLoadTime = Date.now() - pageStartTime;
 
-        mainHeading={aboutPageData?.mainHeading}
-        newBuildIntroText={aboutPageData?.newBuildIntroText}
-        newBuildSummaryText={aboutPageData?.newBuildSummaryText}
-        newBuildResultText={aboutPageData?.newBuildResultText}
-        newBuildResultCta={aboutPageData?.newBuildResultCta}
-        retrofitIntroText={aboutPageData?.retrofitIntroText}
-        retrofitContent={aboutPageData?.retrofitContent}
-        retrofitSlider={aboutPageData?.retrofitSlider}
-        retrofitResultText={aboutPageData?.retrofitResultText}
-        retrofitButtonUrl={aboutPageData?.retrofitButtonUrl}
-      />
-      <AboutProfile 
-        profileImage={aboutPageData?.profileImage}
-        name={aboutPageData?.profileName}
-        title={aboutPageData?.profileTitle}
-        bio={aboutPageData?.profileBio}
-        contactButtonText={aboutPageData?.contactButtonText}
-        contactButtonUrl={aboutPageData?.contactButtonUrl}
-        linkedinUrl={aboutPageData?.linkedinUrl}
-        linkedinButtonText={aboutPageData?.linkedinButtonText}
-      />
-      <TestimonialCard />
-      <AboutCta 
-        title={aboutPageData?.ctaTitle}
-        description={aboutPageData?.ctaDescription}
-        buttonText={aboutPageData?.ctaButtonText}
-        buttonUrl={aboutPageData?.ctaButtonUrl}
-        typewriterWords={aboutPageData?.ctaTypewriterWords?.map(word => ({ text: word }))}
-      />
-    </div>
-  );
+    console.log('📊 [AboutPage] Page data summary:', {
+      hasData: !!aboutPageData,
+      dataFields: aboutPageData ? Object.keys(aboutPageData).length : 0,
+      lastUpdated: aboutPageData?._updatedAt,
+      pageLoadTime: `${pageLoadTime}ms`,
+      timestamp: new Date().toISOString()
+    });
+
+    // Show warning if no data found
+    if (!aboutPageData) {
+      console.warn('⚠️ [AboutPage] No about data found - page will render with empty props');
+    }
+
+    // Generate a unique render ID for debugging
+    const renderId = Math.random().toString(36).substr(2, 9);
+    
+    return (
+      <div className="min-h-screen py-12 pt-[4rem] md:pt-[4rem]">
+   
+        <AboutTop />
+        
+        <ObservabilityRadarChart 
+          newBuildButtonText={aboutPageData?.newBuildButtonText}
+          retrofitButtonText={aboutPageData?.retrofitSelectorButtonText}
+          mainHeading={aboutPageData?.mainHeading}
+          newBuildIntroText={aboutPageData?.newBuildIntroText}
+          newBuildSummaryText={aboutPageData?.newBuildSummaryText}
+          newBuildResultText={aboutPageData?.newBuildResultText}
+          newBuildResultCta={aboutPageData?.newBuildResultCta}
+          retrofitIntroText={aboutPageData?.retrofitIntroText}
+          retrofitContent={aboutPageData?.retrofitContent}
+          retrofitSlider={aboutPageData?.retrofitSlider}
+          retrofitResultText={aboutPageData?.retrofitResultText}
+          retrofitButtonUrl={aboutPageData?.retrofitButtonUrl}
+        />
+        
+        <AboutProfile 
+          profileImage={aboutPageData?.profileImage}
+          name={aboutPageData?.profileName}
+          title={aboutPageData?.profileTitle}
+          bio={aboutPageData?.profileBio}
+          contactButtonText={aboutPageData?.contactButtonText}
+          contactButtonUrl={aboutPageData?.contactButtonUrl}
+          linkedinUrl={aboutPageData?.linkedinUrl}
+          linkedinButtonText={aboutPageData?.linkedinButtonText}
+        />
+        <AboutGlobally />
+        <TestimonialCard />
+        <CtaSection />
+      </div>
+    );
+    
+  } catch (error) {
+    const pageLoadTime = Date.now() - pageStartTime;
+    
+    console.error('❌ [AboutPage] Page render error:', {
+      error: error instanceof Error ? error.message : error,
+      pageLoadTime: `${pageLoadTime}ms`,
+      timestamp: new Date().toISOString()
+    });
+    
+    // In production, you might want to show a fallback UI
+    if (process.env.NODE_ENV === 'production') {
+      // Render page with empty data as fallback
+      return (
+        <div className="min-h-screen py-12 pt-[4rem] md:pt-[4rem]">
+          <AboutTop />
+          <ObservabilityRadarChart 
+            newBuildButtonText={undefined}
+            retrofitButtonText={undefined}
+            mainHeading={undefined}
+            newBuildIntroText={undefined}
+            newBuildSummaryText={undefined}
+            newBuildResultText={undefined}
+            newBuildResultCta={undefined}
+            retrofitIntroText={undefined}
+            retrofitContent={undefined}
+            retrofitSlider={undefined}
+            retrofitResultText={undefined}
+            retrofitButtonUrl={undefined}
+          />
+          <AboutProfile 
+            profileImage={undefined}
+            name={undefined}
+            title={undefined}
+            bio={undefined}
+            contactButtonText={undefined}
+            contactButtonUrl={undefined}
+            linkedinUrl={undefined}
+            linkedinButtonText={undefined}
+          />
+          <TestimonialCard />
+          <CtaSection />
+        </div>
+      );
+    }
+    
+    // Re-throw in development to see the error
+    throw error;
+  }
 }
 
 export default page;

@@ -9,7 +9,17 @@ export interface Resource {
   focusArea?: string[];
   gallery?: { asset: { url: string } }[];
   body?: any;
+  accordion?: AccordionItem[];
+}
+
+export interface AccordionItem {
+  _key: string;
+  title: string;
+  content: any;
+  isOpen?: boolean;
 }
  
 
+
+ 
  

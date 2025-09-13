@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getProjects, getProjectsPageBanner } from "@/sanity/sanity-utils";
+import { getProjects, getProjectsBanner } from "@/sanity/sanity-utils";
 import { Project } from "@/types/Project";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -13,7 +13,8 @@ import { motion } from "motion/react";
 import { Button } from "@/components/ui/moving-border";
 import Link from "next/link";
 import { AuroraBackground } from "@/components/ui/aurora-background";
-import ProjectCta from "@/components/project/ProjectCta"
+import CtaSection from "@/components/CtaSection"
+
 export default function Page() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,16 +23,30 @@ export default function Page() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [res, bannerRes] = await Promise.all([
-        getProjects(),
-        getProjectsPageBanner(),
-      ]);
-      setProjects(res);
-      setBanner(bannerRes);
-      setLoading(false);
+      try {
+        // Add debugging logs
+        console.log('Fetching banner data...');
+        const [res, bannerRes] = await Promise.all([
+          getProjects(),
+          getProjectsBanner(),
+        ]);
+        
+        console.log('Projects:', res);
+        console.log('Banner data received:', bannerRes);
+        
+        setProjects(res);
+        setBanner(bannerRes);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
     };
     fetchData();
   }, []);
+
+  // Add debug logging for banner state
+  console.log('Current banner state:', banner);
 
   return (
     <div>
@@ -48,20 +63,29 @@ export default function Page() {
             }}
             className="container mx-auto relative flex flex-col gap-4 px-4"
           >
-            <div className="max-w-[870px]">
+            <div className="max-w-[1024px]">
+              {/* Add loading state and fallback for banner */}
               <div className="text-3xl md:text-6xl font-normal text-black leading-[1.2] max-w-[1000px]">
-                {banner?.title || "Explore our projects across the built and natural environments"}
+                {loading ? (
+                  <div className="h-12 md:h-20 bg-gray-200 animate-pulse rounded" />
+                ) : (
+                  banner?.title || "Default Title"
+                )}
               </div>
               <div className="font-extralight text-base md:text-2xl dark:text-neutral-200 py-4 max-w-[1024px]">
-                {banner?.description || "From metro systems to concert halls, our sustainability projects demonstrate real-world impact across the built and natural environments."}
+                {loading ? (
+                  <div className="h-6 md:h-8 bg-gray-200 animate-pulse rounded mt-4" />
+                ) : (
+                  banner?.description || "Default description"
+                )}
               </div>
             </div>
           </motion.div>
         </AuroraBackground>
       </div>
-      {/* Swiper Slider */}
+      
+      {/* Rest of your component remains the same */}
       <div className="mt-[60px] relative w-full pt-14 overflow-x-hidden project-slider">
-        {/* Slide Number Indicator */}
         {!loading && projects.length > 0 && (
           <div className="absolute left-[20px] top-0 z-20 text-lg font-semibold text-black ">
             {activeIndex + 1} — {projects.length}
@@ -99,7 +123,7 @@ export default function Page() {
             }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             onSwiper={(swiper) => setActiveIndex(swiper.realIndex)}
-            className="!overflow-visible mb-12"
+            className="!overflow-visible"
           >
             {projects.map((project, idx) => (
               <SwiperSlide key={idx}>
@@ -135,7 +159,6 @@ export default function Page() {
         )}
       </div>
 
-      {/* View All Projects Button */}
       <div className="px-[16px] flex justify-end mb-6">
         <Link href="/projects/all-projects" className="w-full max-w-[160px]">
           <Button className="flex gap-2 h-12 w-full items-center justify-center !rounded-xl bg-white text-sm text-black shadow transition duration-200 hover:shadow-lg">
@@ -144,7 +167,6 @@ export default function Page() {
         </Link>
       </div>
 
-      {/* Projects Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-[16px]  mb-12">
         {loading
           ? [...Array(8)].map((_, i) => (
@@ -181,8 +203,9 @@ export default function Page() {
                 </div>
               </div>
             ))}
+               
       </div>
-      <ProjectCta />
+   <div className="px-[16px]"><CtaSection /></div>
     </div>
   );
 }

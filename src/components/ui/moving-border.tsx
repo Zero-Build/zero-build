@@ -117,19 +117,19 @@ export const Button = memo(({
 
   // Memoize container classes
   const containerClasses = useMemo(() => cn(
-    "relative text-xl p-[1px] overflow-hidden w-full !rounded-[10px]",
+    "relative text-xl p-[1px] overflow-hidden w-full !rounded-[10px] max-w-[254px]",
     containerClassName
   ), [containerClassName]);
 
   // Memoize border classes
   const borderClasses = useMemo(() => cn(
-    "h-20 w-20 opacity-[0.8] bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]",
+    "h-[56px] w-20 opacity-[0.8] bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]",
     borderClassName
   ), [borderClassName]);
 
   // Memoize content classes
   const contentClasses = useMemo(() => cn(
-    "relative border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
+    "max-w-[254px] h-[56px] relative border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
     className
   ), [className]);
 

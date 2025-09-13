@@ -3,12 +3,15 @@ export interface Feature {
   _createdAt: string
   title: string
   description: string
-  icon?: string
-  logoColors?: {
-    primaryColor: string
-    secondaryColor: string
-    gradientDirection: string
-  }
   order: number
+  isActive: boolean
+}
+
+export interface FeatureHeading {
+  _id: string
+  _createdAt: string
+  heading: string
+  description: string
+  highlightText: string
   isActive: boolean
 }

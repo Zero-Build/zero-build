@@ -3,18 +3,44 @@ import { type SchemaTypeDefinition } from 'sanity'
 import { serviceType } from './service-schema'
 import { projectType } from './project-schema'
 import { resourceType } from './resource-schema'
-import { contactType } from './contact-schema'
 import contactSubmission from './contactSubmission-schema';
 import { youtubeVideoType } from './youtube-video-schema';
 import { heroType } from './hero-schema';
 import { performanceType } from './performance-schema';
 import { featureType } from './feature-schema';
+import { featureHeadingType } from './featureHeading-schema';
 import { companyType } from './company-schema';
-import { servicesPageType } from './services-page-schema';
+import { servicesBannerType } from './services-page-schema';
 import { projectsPageType } from './projects-page-schema';
 import { aboutPageType } from './about-page-schema';
-
-
+import { contactPageType } from './contact-page-schema';
+import { resourcesPageType } from './resources-page-schema';
+import { worldMapType } from './worldmap-schema';
+import { testimonialType } from './testimonial-schema';
+import { ctaType } from './cta-schema';
+import { ctaBoxType } from './ctaSidebarBox-schema';
+import { copyrightType } from './copyright-schema';
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [serviceType, projectType, resourceType, contactType, contactSubmission, youtubeVideoType, heroType, performanceType, featureType, companyType, servicesPageType, projectsPageType, aboutPageType],
+  types: [
+    serviceType,
+    projectType,
+    resourceType,
+    contactSubmission, 
+    youtubeVideoType,
+    heroType,
+    performanceType,
+    featureType,
+    featureHeadingType,
+    worldMapType,
+    testimonialType,
+    ctaType,
+    companyType,
+    servicesBannerType,
+    ctaBoxType,
+    resourcesPageType,
+    projectsPageType,
+    aboutPageType,
+    contactPageType,
+    copyrightType,
+  ],
 } 
