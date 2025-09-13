@@ -13,19 +13,14 @@ import CtaSection from "@/components/CtaSection";
 import Accordion from "@/components/ui/accordion";
 import GallerySlider from "@/components/resource/GallerySlider";
 
-// ✅ Define props type
-type PageProps = {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
 // ✅ generateMetadata with correct typing
 export async function generateMetadata(
-  { params }: PageProps,
+  { params }: { params: { slug: string } },
   parent?: ResolvingMetadata
 ): Promise<Metadata> {
-  const { slug } = params;
-  const resource: Resource = await getResource(slug);
+  const { slug } = await params; // params is a Promise in App Router sometimes
+
+  const resource: Resource | null = await getResource(slug);
 
   if (!resource) {
     return {
@@ -71,15 +66,18 @@ export async function generateMetadata(
 }
 
 // ✅ Page with correct props
-export default async function Page({ params }: PageProps) {
-  const { slug } = params;
-  const resource: Resource = await getResource(slug);
+export default async function Page({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params; // ensure proper handling
+
+  const resource: Resource | null = await getResource(slug);
   const resourcesPageBanner = await getResourcesPageBanner();
-  const relatedResources = await getRelatedResources(
-    slug,
-    resource?.purpose,
-    resource?.focusArea
-  );
+  const relatedResources =
+    (await getRelatedResources(slug, resource?.purpose, resource?.focusArea)) ||
+    [];
 
   if (!resource) {
     return (
@@ -104,14 +102,16 @@ export default async function Page({ params }: PageProps) {
         <h1 className="text-black text-[24px] md:text-[40px] leading-[1.1] font-normal max-w-[740px]">
           {resource.title}
         </h1>
-        {resource.purpose && Array.isArray(resource.purpose) ? (
+        {Array.isArray(resource.purpose) ? (
           <div className="text-[#9b9b9b] text-[18px] md:text-[24px] leading-tight">
             {resource.purpose[0]}
           </div>
         ) : (
-          <div className="text-[#9b9b9b] text-[18px] md:text-[24px] leading-tight">
-            {resource.purpose}
-          </div>
+          resource.purpose && (
+            <div className="text-[#9b9b9b] text-[18px] md:text-[24px] leading-tight">
+              {resource.purpose}
+            </div>
+          )
         )}
       </div>
 
