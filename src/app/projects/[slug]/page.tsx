@@ -92,17 +92,17 @@ export default async function Page({
 
   return (
     <div className="px-[16px] pt-[30px] md:pt-[25px] mx-auto space-y-5 mt-[60px] pb-[60px] ">
-   <div className="container mx-auto px-[16px]">
+   <div className="container mx-auto px-0 md:px-[16px]">
        <Link
         href="/projects"
-        className="text-black font-semibold flex gap-[10px] mb-[20px] link items-center"
+        className="text-black text-[20px] font-semibold flex gap-[10px] mb-[20px] link items-center"
       >
         <ArrowLeft />
         <span className="hover:link-underline">Back to Projects</span>
       </Link>
       {/* Header: Title left, Location right */}
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 !mb-[20px]">
-        <h1 className="text-black text-[32px] md:text-[40px] leading-[1.1] font-normal max-w-[740px]">
+        <h1 className="text-black text-[24px] md:text-[40px] leading-[1.1] font-normal max-w-[740px]">
           {project.title}
         </h1>
         {project.location && (
@@ -165,7 +165,7 @@ export default async function Page({
         </div>
 
         {/* Right: CTA */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 hidden md:block">
           <div className="rounded-[.75rem] border border-[#e0e0e0] p-[2rem] sticky top-[90px]">
             <h3 className="text-[22px] font-semibold mb-2 text-black">
               Get in touch with our team
@@ -185,9 +185,9 @@ export default async function Page({
       {relatedProjects.length > 0 && (
         <div className="container mx-auto px-0 md:px-[16px] md:pt-[60px]">
           <div className="lg:col-span-3">
-            <p className="text-[20px] text-[#757575] mb-[0px]">Projects</p>
+            <p className="text-[18px] md:text-[20px] text-[#757575] mb-[0px]">Projects</p>
             <div className="flex items-end md:items-center justify-between mb-6 md:flex-row flex-col gap-4">
-              <h2 className="text-[32px] md:text-[38px] font-normal text-black">
+              <h2 className="text-[20px] md:text-[38px] font-normal text-black">
                 Explore more climate & sustainability projects
               </h2>
               <Link

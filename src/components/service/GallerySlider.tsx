@@ -13,7 +13,7 @@ export default function GallerySlider({ gallery }: { gallery: any[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="mt-[20px] md:mt-[60px]  relative w-full pt-14 overflow-x-hidden project-slider">
+    <div className="mt-[20px] md:mt-[60px] relative w-full pt-14 overflow-x-hidden project-slider">
       <div className="absolute left-[20px] top-0 z-20 text-lg font-semibold text-black">
         {activeIndex + 1} — {gallery.length}
       </div>

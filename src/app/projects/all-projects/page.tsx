@@ -1,50 +1,86 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getProjects } from "@/sanity/sanity-utils";
+import { getProjects, getProjectsBanner } from "@/sanity/sanity-utils";
 import { Project } from "@/types/Project";
 import Link from "next/link";
 import Image from "next/image";
 import { Search } from "lucide-react";
+import { motion } from "motion/react";
+import { AuroraBackground } from "@/components/ui/aurora-background";
 export default function Page() {
   const [searchTerm, setSearchTerm] = useState("");
   const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await getProjects();
-      setProjects(res);
-    };
-    fetchData();
-  }, []);
+  const [banner, setBanner] = useState<{
+    title: string;
+    description: string;
+  } | null>(null);
 
   const filteredProjects = projects.filter((project) =>
     project.title?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Add debugging logs
+        console.log("Fetching banner data...");
+        const [res, bannerRes] = await Promise.all([
+          getProjects(),
+          getProjectsBanner(),
+        ]);
+
+        console.log("Projects:", res);
+        console.log("Banner data received:", bannerRes);
+
+        setProjects(res);
+        setBanner(bannerRes);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="pb-[40px]">
-      <section
-        className="pt-24 pb-10 lg:pb-12 mb-[40px]"
-        style={{
-          backgroundBlendMode: "overlay",
-          backgroundSize: "cover",
-          backgroundImage: `url("/assets/images/coding-background-texture.jpg"), linear-gradient(180deg, #474ab6 0%, #9271f6 100%)`,
-        }}
-      >
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-6xl font-normal text-white max-w-[1000px] leading-[1.2]">
-            All Projects
-          </h1>
-          <p className="text-base md:text-2xl text-white max-w-[1000px] mt-4 md:mt-7">
-            From metro systems to concert halls, water utilities to wind farms,
-            our projects in sustainability and infrastructure are shaping a
-            better world. Discover the range of work we do.
-          </p>
-        </div>
-      </section>
+      <div className="min-h-[1px] bg-white mt-[64px]">
+             <AuroraBackground>
+               <motion.div
+                 initial={{ opacity: 0.0, y: 40 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 transition={{
+                   delay: 0.3,
+                   duration: 0.8,
+                   ease: "easeInOut",
+                 }}
+                 className="container mx-auto relative flex flex-col gap-4 px-4"
+               >
+                 <div className="max-w-[1024px]">
+                   {/* Add loading state and fallback for banner */}
+                   <div className="text-3xl md:text-6xl font-normal text-black leading-[1.2] max-w-[1000px]">
+                     {loading ? (
+                       <div className="h-12 md:h-20 bg-gray-200 animate-pulse rounded" />
+                     ) : (
+                       banner?.title || "Default Title"
+                     )}
+                   </div>
+                   <div className="font-extralight text-base md:text-2xl dark:text-neutral-200 py-4 max-w-[1024px]">
+                     {loading ? (
+                       <div className="h-6 md:h-8 bg-gray-200 animate-pulse rounded mt-4" />
+                     ) : (
+                       banner?.description || "Default description"
+                     )}
+                   </div>
+                 </div>
+               </motion.div>
+             </AuroraBackground>
+           </div>
 
-      <div className="mb-16  px-[2rem]">
+      <div className="mb-16  px-[2rem] mt-[20px] md:mt-[60px]  relative w-full">
         <div className="relative  max-w-[832px]">
           <input
             type="text"

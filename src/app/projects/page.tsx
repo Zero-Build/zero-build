@@ -45,8 +45,6 @@ export default function Page() {
     fetchData();
   }, []);
 
-  // Add debug logging for banner state
-  console.log('Current banner state:', banner);
 
   return (
     <div>
@@ -85,7 +83,7 @@ export default function Page() {
       </div>
       
       {/* Rest of your component remains the same */}
-      <div className="mt-[60px] relative w-full pt-14 overflow-x-hidden project-slider">
+      <div className="mt-[20px] md:mt-[60px]  relative w-full pt-14 overflow-x-hidden project-slider">
         {!loading && projects.length > 0 && (
           <div className="absolute left-[20px] top-0 z-20 text-lg font-semibold text-black ">
             {activeIndex + 1} — {projects.length}

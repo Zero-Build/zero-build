@@ -8,6 +8,7 @@ import Accordion from "@/components/ui/accordion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import CtaSection from "@/components/CtaSection";
 import CtaBoxSection from "@/components/CtaSidebarBox";
+import GallerySlider from "@/components/service/GallerySlider"; 
 export async function generateMetadata({
   params,
 }: {
@@ -112,7 +113,7 @@ export default async function Page({
         <ArrowLeft /> 
         <span className="hover:link-underline">Back to Services</span>
       </Link>
-      
+      <div className="hidden md:block">
       {(service.gallery?.length ?? 0) > 0 && (
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -129,7 +130,13 @@ export default async function Page({
           </div>
         </div>
       )}
-      <div className="container mx-auto px-0 md:px-[16px] pt-[60px]">
+      </div>
+      <div className="block md:hidden">
+            {service.gallery && service.gallery.length > 0 && (
+              <GallerySlider gallery={service.gallery} />
+            )}
+            </div>
+      <div className="container mx-auto px-0 md:px-[16px] pt-0 md:pt-[60px]">
       <h1 className="text-black text-[24px] md:text-[40px] leading-9 font-bold">
         {service.title}
       </h1>
