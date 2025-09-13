@@ -143,7 +143,7 @@ const Navbar = ({ className }: { className?: string }) => {
             </HoveredLink>
           </div>
 
-          <div className="flex flex-col items-start px-[16px] pt-[50px] space-y-1">
+          <div className="flex flex-col items-start pt-[50px] space-y-1">
             {["about", "services", "projects", "resources", "contact"].map((item) => (
               <HoveredLink
                 key={item}
