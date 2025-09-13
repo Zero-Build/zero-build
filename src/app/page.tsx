@@ -79,13 +79,12 @@ export default async function Home() {
       />
       <HeroSection heroData={heroData} />
       <PerformanceSection performanceData={performanceData} />
-      {/* <ServiceSection /> */}
       <FeaturesSection />
-      {/* <FeaturedByYoutubers /> */}
-
       <MapWorld />
       <TestimonialCard />
-      <CtaSection />
+     <div className="px-[16px]">
+       <CtaSection />
+     </div>
     </main>
   );
 }

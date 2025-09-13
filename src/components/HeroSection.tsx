@@ -108,7 +108,7 @@ const HeroSection = memo(({ heroData }: HeroSectionProps) => {
             )}
             {...titleVariants}
           >
-            <div className="inline-block max-w-[1024px] leading-[38px] md:leading-[75px]">
+            <div className="items-center flex flex-col md:inline-block max-w-[1024px] leading-[38px] md:leading-[75px]">
               {heroData.title}
               <Suspense fallback={<span className="ml-3 text-[#484AB7] text-[28px] md:text-4xl">better</span>}>
                 <ContainerTextFlip {...containerTextFlipProps} />
@@ -117,7 +117,7 @@ const HeroSection = memo(({ heroData }: HeroSectionProps) => {
           </motion.h1>
           
           <motion.p 
-            className="mt-4 font-normal text-base md:text-lg text-black max-w-2xl mx-auto"
+            className="mt-4 font-normal text-[14px] md:text-lg text-black max-w-2xl mx-auto"
             {...descriptionVariants}
           >
             {heroData.description}

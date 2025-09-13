@@ -38,23 +38,23 @@ export default function Page() {
       <div className="container mx-auto ">
         {/* Feature Heading */}
         {loading ? (
-          <div className="text-center mb-8 md:mb-12 px-[2rem] animate-pulse">
+          <div className="text-center mb-8 md:mb-12 px-[16px] md:px-[2rem] animate-pulse">
             <div className="h-8 md:h-10 lg:h-12 w-2/3 mx-auto bg-gray-300 dark:bg-gray-700 rounded mb-6"></div>
             <div className="h-4 w-3/4 mx-auto bg-gray-200 dark:bg-gray-600 rounded mb-3"></div>
             <div className="h-4 w-2/3 mx-auto bg-gray-200 dark:bg-gray-600 rounded"></div>
           </div>
         ) : (
           featureHeading && (
-            <div className="text-center mb-8 md:mb-12 px-[2rem]">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800 dark:text-white mb-4">
+            <div className="text-center mb-8 md:mb-12 px-[16px] md:px-[2rem]">
+              <h2 className="text-[20px] md:text-4xl lg:text-5xl font-bold text-neutral-800 dark:text-white mb-4">
                 {featureHeading.heading}
-              </h1>
+              </h2>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: [20, -5, 0] }}
                 transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
-                className="text-center text-[16px] px-4 text-black max-w-4xl mx-auto mb-8 md:mb-12 relative z-10 leading-[32px]"
+                className="text-center text-[14px] md:text-[16px] px-0 md:px-4 text-black max-w-4xl mx-auto mb-8 md:mb-12 relative z-10 leading-[20px] md:leading-[32px] flex flex-col md:inline-block"
               >
                 {featureHeading.description}
                 <Highlight className="text-black dark:text-white">
@@ -66,7 +66,7 @@ export default function Page() {
         )}
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-[2rem]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-[16px] md:px-[2rem]">
           {loading
             ? Array.from({ length: 6 }).map((_, index) => (
                 <div

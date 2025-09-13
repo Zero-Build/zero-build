@@ -120,7 +120,7 @@ export function MapWorld() {
             )}
           </p>
 
-          <p className="text-sm md:text-lg text-black max-w-2xl mx-auto py-4">
+          <p className="text-[14px] md:text-lg text-black max-w-2xl mx-auto py-4">
             {worldMaps.subtext}
           </p>
         </div>

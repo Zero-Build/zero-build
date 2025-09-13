@@ -7,7 +7,7 @@ import { AnimatedButton } from "./ui/animated-button";
 import type { Performance } from "@/types/performance";
 import { PortableText } from "@portabletext/react";
 import Link from "next/link";
-
+import Image from "next/image";
 // Lazy load skeleton component
 const PerformanceSkeleton = lazy(() =>
   import("./shimmer/PerformanceSkeleton").then((mod) => ({
@@ -75,114 +75,123 @@ export default function PerformanceSection({
       <div className="container mx-auto px-[16px]">
         {/* Title and description */}
         <div className="text-center mb-8">
-          <div className="text-[24px] md:text-[28px] leading-[1.3] mb-[15px] font-bold">
-            <p>{performanceData.mainTitle}</p>
+          <div>
+            <h2  className="text-[20px] md:text-[28px] leading-[1.3] mb-[15px] font-bold">{performanceData.mainTitle}</h2>
           </div>
           {performanceData.contentAboveGraph && (
-            <div className="prose max-w-none text-black text-center mb-8">
+            <div className="prose max-w-none text-black text-center mb-8 text-[14px] md:text-[16px]">
               <PortableText value={performanceData.contentAboveGraph} />
             </div>
           )}
         </div>
+        <div className="block md:hidden py-[40px] bg-white">
+          <Image
+            src="/assets/images/graph-image-01.png"
+            alt="pattenRight"
+            width={1000}
+            height={1000}
+            className="w-full h-auto"
+          />
+        </div>
+        <div className="hidden md:block">
+          {/* Chart buttons */}
+          <div className="text-center mb-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 justify-center gap-2 graph-btn">
+              {chartButtons.map((button) => {
+                // Show skeleton while loading for interactive buttons
+                if (
+                  isLoading &&
+                  (button.value === "comfort" ||
+                    button.value === "compliance" ||
+                    button.value === "circularity")
+                ) {
+                  return <ButtonSkeleton key={button.value} />;
+                }
 
-        {/* Chart buttons */}
-        <div className="text-center mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 justify-center gap-2 graph-btn">
-            {chartButtons.map((button) => {
-              // Show skeleton while loading for interactive buttons
-              if (
-                isLoading &&
-                (button.value === "comfort" ||
+                // Use regular button for Cost and Carbon (no moving-border)
+                if (button.value === "cost" || button.value === "carbon") {
+                  return (
+                    <button
+                      key={button.value}
+                      className="px-4 py-2 text-[16px] font-bold bg-[#484AB7] text-white cursor-not-allowed opacity-90 rounded-xl transition-colors"
+                    >
+                      {button.label}
+                    </button>
+                  );
+                }
+
+                // Use AnimatedButton for Comfort, Compliance, and Circularity
+                if (
+                  button.value === "comfort" ||
                   button.value === "compliance" ||
-                  button.value === "circularity")
-              ) {
-                return <ButtonSkeleton key={button.value} />;
-              }
+                  button.value === "circularity"
+                ) {
+                  const buttonConfig = {
+                    comfort: {
+                      defaultText: "Comfort",
+                      hoverText: "Click to Assess",
+                    },
+                    compliance: {
+                      defaultText: "Compliance",
+                      hoverText: "Click to Assess",
+                    },
+                    circularity: {
+                      defaultText: "Circularity",
+                      hoverText: "Click to Assess",
+                    },
+                  };
 
-              // Use regular button for Cost and Carbon (no moving-border)
-              if (button.value === "cost" || button.value === "carbon") {
+                  const config =
+                    buttonConfig[button.value as keyof typeof buttonConfig];
+
+                  return (
+                    <AnimatedButton
+                      key={button.value}
+                      defaultText={config.defaultText}
+                      hoverText={config.hoverText}
+                      onClick={() => handleButtonClick(button.value)}
+                      disabled={isLoading}
+                      className={`${
+                        selectedView === button.value
+                          ? "bg-[#484AB7] text-white border border-[#484AB7] font-bold active"
+                          : "bg-white text-black border border-gray-300 hover:bg-[#484AB7] hover:text-white active:bg-[#484AB7] active:text-white font-medium"
+                      } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                    />
+                  );
+                }
+
+                // Use moving-border Button for other buttons (fallback)
                 return (
-                  <button
+                  <Button
                     key={button.value}
-                    className="px-4 py-2 text-[16px] font-bold bg-[#484AB7] text-white cursor-not-allowed opacity-90 rounded-xl transition-colors"
-                  >
-                    {button.label}
-                  </button>
-                );
-              }
-
-              // Use AnimatedButton for Comfort, Compliance, and Circularity
-              if (
-                button.value === "comfort" ||
-                button.value === "compliance" ||
-                button.value === "circularity"
-              ) {
-                const buttonConfig = {
-                  comfort: {
-                    defaultText: "Comfort",
-                    hoverText: "Click to Assess",
-                  },
-                  compliance: {
-                    defaultText: "Compliance",
-                    hoverText: "Click to Assess",
-                  },
-                  circularity: {
-                    defaultText: "Circularity",
-                    hoverText: "Click to Assess",
-                  },
-                };
-
-                const config =
-                  buttonConfig[button.value as keyof typeof buttonConfig];
-
-                return (
-                  <AnimatedButton
-                    key={button.value}
-                    defaultText={config.defaultText}
-                    hoverText={config.hoverText}
                     onClick={() => handleButtonClick(button.value)}
                     disabled={isLoading}
-                    className={`${
+                    className={`px-4 py-2 text-[16px] font-bold transition-colors ${
                       selectedView === button.value
                         ? "bg-[#484AB7] text-white border border-[#484AB7] font-bold active"
                         : "bg-white text-black border border-gray-300 hover:bg-[#484AB7] hover:text-white active:bg-[#484AB7] active:text-white font-medium"
                     } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-                  />
+                    style={{
+                      fontSize: "12px",
+                    }}
+                  >
+                    {button.label}
+                  </Button>
                 );
-              }
-
-              // Use moving-border Button for other buttons (fallback)
-              return (
-                <Button
-                  key={button.value}
-                  onClick={() => handleButtonClick(button.value)}
-                  disabled={isLoading}
-                  className={`px-4 py-2 text-[16px] font-bold transition-colors ${
-                    selectedView === button.value
-                      ? "bg-[#484AB7] text-white border border-[#484AB7] font-bold active"
-                      : "bg-white text-black border border-gray-300 hover:bg-[#484AB7] hover:text-white active:bg-[#484AB7] active:text-white font-medium"
-                  } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-                  style={{
-                    fontSize: "12px",
-                  }}
-                >
-                  {button.label}
-                </Button>
-              );
-            })}
+              })}
+            </div>
           </div>
+
+          {/* Chart section - shown when button is clicked */}
+          {showChart && (
+            <div className="mb-12">
+              <ObservabilityChart selectedView={selectedView} />
+            </div>
+          )}
         </div>
-
-        {/* Chart section - shown when button is clicked */}
-        {showChart && (
-          <div className="mb-12">
-            <ObservabilityChart selectedView={selectedView} />
-          </div>
-        )}
-
         {/* Content below graph */}
         {performanceData.contentBelowGraph && (
-          <div className="prose max-w-none text-black text-center mb-8">
+          <div className="prose max-w-none text-black text-center mb-8 text-[14px] md:text-[16px]">
             <PortableText value={performanceData.contentBelowGraph} />
           </div>
         )}
