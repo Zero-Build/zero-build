@@ -13,13 +13,12 @@ import CtaSection from "@/components/CtaSection";
 import Accordion from "@/components/ui/accordion";
 import GallerySlider from "@/components/resource/GallerySlider"; 
 
-
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const resource: Resource = await getResource(slug);
 
   if (!resource) {
@@ -59,9 +58,12 @@ export async function generateMetadata({
   };
 }
 
-
-export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function Page({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  const { slug } = await params;
   const resource: Resource = await getResource(slug);
   const resourcesPageBanner = await getResourcesPageBanner();
   const relatedResources = await getRelatedResources(
