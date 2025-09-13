@@ -207,7 +207,7 @@ export default async function Page({
                     </div>
                   </div>
                 </Link>
-              ))}
+              ))} 
             </div>
           </div>
         </div>
