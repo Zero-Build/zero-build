@@ -7,18 +7,23 @@ import {
   getResourcesPageBanner,
 } from "@/sanity/sanity-utils";
 import { Resource } from "@/types/Resource";
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import CtaSection from "@/components/CtaSection";
 import Accordion from "@/components/ui/accordion";
-import GallerySlider from "@/components/resource/GallerySlider"; 
+import GallerySlider from "@/components/resource/GallerySlider";
 
-
-export async function generateMetadata({
-  params,
-}: {
+// ✅ Define props type
+type PageProps = {
   params: { slug: string };
-}): Promise<Metadata> {
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
+// ✅ generateMetadata with correct typing
+export async function generateMetadata(
+  { params }: PageProps,
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
   const { slug } = params;
   const resource: Resource = await getResource(slug);
 
@@ -44,7 +49,13 @@ export async function generateMetadata({
       siteName: "ZeroBuild",
       images: resource.image?.asset?.url
         ? [{ url: resource.image.asset.url, width: 1200, height: 630 }]
-        : [{ url: "/assets/images/coding-background-texture.jpg", width: 1200, height: 630 }],
+        : [
+            {
+              url: "/assets/images/coding-background-texture.jpg",
+              width: 1200,
+              height: 630,
+            },
+          ],
       locale: "en_GB",
       type: "website",
     },
@@ -59,8 +70,8 @@ export async function generateMetadata({
   };
 }
 
-
-export default async function Page({ params }: { params: { slug: string } }) {
+// ✅ Page with correct props
+export default async function Page({ params }: PageProps) {
   const { slug } = params;
   const resource: Resource = await getResource(slug);
   const resourcesPageBanner = await getResourcesPageBanner();
