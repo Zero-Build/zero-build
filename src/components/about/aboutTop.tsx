@@ -47,7 +47,7 @@ export default async function AboutTop() {
                     <h2 className="text-2xl font-semibold text-center">{children}</h2>
                   ),
                   normal: ({ children }) => (
-                    <p className="text-[16px] text-left md:text-center">{children}</p>
+                    <p className="text-[14px] md:text-[16px] text-left md:text-center">{children}</p>
                   ),
                 },
                 list: {

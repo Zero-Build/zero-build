@@ -30,7 +30,12 @@ interface ObservabilityRadarChartProps {
   retrofitIntroText?: unknown;
   retrofitContent?: unknown;
   retrofitSlider?: Array<{
-    image: { asset?: { url: string; metadata?: { dimensions?: { width: number; height: number } } } };
+    image: {
+      asset?: {
+        url: string;
+        metadata?: { dimensions?: { width: number; height: number } };
+      };
+    };
     altText: string;
   }>;
   retrofitResultText?: string;
@@ -80,10 +85,8 @@ let dataCache: {
 // Shimmer loading component
 const LoadingSkeleton: React.FC = () => (
   <div className="container mx-auto px-4 py-8">
-
     {/* All Options Skeleton */}
     <div>
-
       <div className="bg-white p-4 rounded-lg shadow-lg">
         <div className="grid grid-cols-1 gap-2">
           {Array.from({ length: 1 }).map((_, i) => (
@@ -100,7 +103,6 @@ const LoadingSkeleton: React.FC = () => (
 
     {/* Summary Options Skeleton */}
     <div>
-   
       <div className="bg-white p-4 rounded-lg shadow-lg">
         <div className="grid grid-cols-1 gap-4">
           {Array.from({ length: 1 }).map((_, i) => (
@@ -191,10 +193,13 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
     retrofitResultText,
     retrofitButtonUrl,
   });
-  
+
   // Validate required props
   if (!newBuildButtonText || !retrofitButtonText) {
-    console.warn("ObservabilityRadarChart: Missing button text props", { newBuildButtonText, retrofitButtonText });
+    console.warn("ObservabilityRadarChart: Missing button text props", {
+      newBuildButtonText,
+      retrofitButtonText,
+    });
   }
   const [rawData, setRawData] = useState<OptionData[]>([]);
   const [combinedData, setCombinedData] = useState<OptionData[]>([]);
@@ -212,7 +217,9 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
     typeof value === "string" && value.trim().length > 0 ? value : fallback;
 
   const isBlocks = (value: unknown): value is any[] =>
-    Array.isArray(value) && (value as any[]).length > 0 && typeof (value as any[])[0] === "object";
+    Array.isArray(value) &&
+    (value as any[]).length > 0 &&
+    typeof (value as any[])[0] === "object";
 
   useEffect(() => {
     setIsClient(true);
@@ -224,9 +231,14 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
     const fetchData = async () => {
       try {
         console.log("Starting data fetch...");
-        
+
         // Check cache first
-        if (dataCache && dataCache.rawData && dataCache.combinedData && dataCache.summaryData) {
+        if (
+          dataCache &&
+          dataCache.rawData &&
+          dataCache.combinedData &&
+          dataCache.summaryData
+        ) {
           console.log("Using cached data");
           setRawData(dataCache.rawData);
           setCombinedData(dataCache.combinedData);
@@ -239,25 +251,31 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
         const response = await fetch(
           "/assets/file/optioneering_min_final.xlsx"
         );
-        
+
         if (!response.ok) {
-          console.error("Excel file fetch failed:", response.status, response.statusText);
-          throw new Error(`Failed to fetch Excel file: ${response.status} ${response.statusText}`);
+          console.error(
+            "Excel file fetch failed:",
+            response.status,
+            response.statusText
+          );
+          throw new Error(
+            `Failed to fetch Excel file: ${response.status} ${response.statusText}`
+          );
         }
 
         console.log("Excel file fetched successfully, processing...");
         const arrayBuffer = await response.arrayBuffer();
         const workbook = XLSX.read(arrayBuffer);
         const worksheet = workbook.Sheets["5C"];
-        
+
         if (!worksheet) {
           console.error("Worksheet '5C' not found in Excel file");
           throw new Error("Worksheet '5C' not found in Excel file");
         }
-        
+
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         console.log("Excel data parsed:", jsonData?.length, "rows");
-        
+
         if (!jsonData || !Array.isArray(jsonData) || jsonData.length === 0) {
           console.error("No data found in worksheet");
           throw new Error("No data found in worksheet");
@@ -266,10 +284,10 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
         console.log("Processing raw data...");
         const processedData = processRawData(jsonData);
         console.log("Processed data:", processedData?.length, "rows");
-        
+
         const sampledData = sampleAndCombineData(processedData);
         console.log("Sampled data:", sampledData?.length, "rows");
-        
+
         const summary = createSummaryData(sampledData);
         console.log("Summary data:", summary?.length, "rows");
 
@@ -307,7 +325,9 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
   if (error)
     return <div className="text-center py-8 text-red-500">Error: {error}</div>;
   if (!rawData || rawData.length === 0)
-    return <div className="text-center py-8 text-gray-500">No data available</div>;
+    return (
+      <div className="text-center py-8 text-gray-500">No data available</div>
+    );
 
   const handleProjectTypeChange = (type: "new-build" | "retrofit") => {
     if (type === projectType) return;
@@ -316,17 +336,17 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <motion.h1 
+      <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-[24px] md:text-[38px] font-bold mb-8 text-black text-center max-w-full md:max-w-[900px] mx-auto"
-              >
-          {safeText(mainHeading, "Pick your Project Type")}
-        </motion.h1>
+        className="text-[20px] md:text-[38px] font-bold mb-8 text-black text-center max-w-full md:max-w-[900px] mx-auto"
+      >
+        {safeText(mainHeading, "Pick your Project Type")}
+      </motion.h2>
 
       {/* Project Type Selection */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -342,9 +362,9 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                 ? "w-full bg-[#484AB7] text-white border-neutral-200 dark:border-[#484AB7] p-5 rounded-2xl max-w-[256px] h-[56px] flex items-center justify-center text-[16px] font-semibold hover:bg-[#3c3f9d] transition-colors duration-200 shadow-lg"
                 : "flex h-14 w-full items-center justify-center !rounded-2xl border border-transparent bg-white text-sm text-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200 hover:shadow-lg max-w-[256px] text-[16px] font-semibold hover:bg-gray-50"
             }`}
-                      >
-              {newBuildButtonText}
-            </motion.button>
+          >
+            {newBuildButtonText}
+          </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -354,9 +374,9 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                 ? "w-full bg-[#484AB7] text-white border-neutral-200 dark:border-[#484AB7] p-5 rounded-2xl max-w-[256px] h-[56px] flex items-center justify-center text-[16px] font-semibold hover:bg-[#3c3f9d] transition-colors duration-200 shadow-lg"
                 : "flex h-14 w-full items-center justify-center !rounded-2xl border border-transparent bg-white text-sm text-black shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200 hover:shadow-lg max-w-[256px] text-[16px] font-semibold hover:bg-gray-50"
             }`}
-                      >
-              {retrofitButtonText}
-            </motion.button>
+          >
+            {retrofitButtonText}
+          </motion.button>
         </div>
       </motion.div>
 
@@ -369,20 +389,20 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -50, scale: 0.95 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="mb-12 relative"
+            className="mb-[15px] md:mb-12 relative"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="mb-4 text-black"
-                          >
+            >
               {isBlocks(newBuildIntroText) ? (
-                <div className="prose max-w-none text-black">
+                <div className="prose max-w-none text-black text-[14px] md:text-[16px]">
                   <PortableText value={newBuildIntroText as any[]} />
                 </div>
               ) : (
-                <div className="prose max-w-none text-black">
+                <div className="prose max-w-none text-black text-[14px] md:text-[16px]">
                   {safeText(
                     newBuildIntroText,
                     "Ever wondered what might've happened if you chose a different strategy, system, or construction method? One that could have performed better over the long term?"
@@ -392,21 +412,31 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
             </motion.div>
 
             {/* Removed: newBuildSubText and newBuildDescription sections */}
-
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="overflow-x-auto text-center"
-            >
-              <Suspense fallback={<ChartSkeleton />}>
-                {combinedData && combinedData.length > 0 ? (
-                  <MainRadarPlot data={combinedData} />
-                ) : (
-                  <ChartSkeleton />
-                )}
-              </Suspense>
-            </motion.div>
+            <div className="block md:hidden">
+              <Image
+                src="/assets/images/graph-image-02.png"
+                alt="Five C Zero"
+                className="w-full h-auto"
+                width={1000}
+                height={1000}
+              />
+            </div>
+            <div className="hidden md:block">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="overflow-x-auto text-center"
+              >
+                <Suspense fallback={<ChartSkeleton />}>
+                  {combinedData && combinedData.length > 0 ? (
+                    <MainRadarPlot data={combinedData} />
+                  ) : (
+                    <ChartSkeleton />
+                  )}
+                </Suspense>
+              </motion.div>
+            </div>
           </motion.div>
         ) : null}
 
@@ -420,18 +450,18 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
             className="mb-12 overflow-x-auto overflow-y-hidden"
           >
             {retrofitContent ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="mb-4 text-black"
               >
                 {isBlocks(retrofitContent) ? (
-                  <div className="prose max-w-none text-black">
+                  <div className="prose max-w-none text-black text-[14px] md:text-[16px]">
                     <PortableText value={retrofitContent as any[]} />
                   </div>
                 ) : (
-                  <div className="prose max-w-none text-black">
+                  <div className="prose max-w-none text-black text-[14px] md:text-[16px]">
                     {safeText(
                       retrofitContent,
                       "Retrofit projects focus on improving existing buildings through strategic upgrades and modifications."
@@ -441,9 +471,7 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
               </motion.div>
             ) : null}
 
-
-
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -479,11 +507,17 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                   <SwiperSlide key={index}>
                     <div className="relative rounded-xl overflow-hidden">
                       <Image
-                        src={image.image.asset?.url || "/assets/images/image1.jpg"}
+                        src={
+                          image.image.asset?.url || "/assets/images/image1.jpg"
+                        }
                         alt={image.altText}
-                        width={image.image.asset?.metadata?.dimensions?.width || 900}
-                        height={image.image.asset?.metadata?.dimensions?.height || 400}
-                        className="w-full h-[400px] object-cover rounded-xl"
+                        width={
+                          image.image.asset?.metadata?.dimensions?.width || 900
+                        }
+                        height={
+                          image.image.asset?.metadata?.dimensions?.height || 400
+                        }
+                        className="w-full h-auto md:h-[400px] object-cover rounded-xl"
                       />
                     </div>
                   </SwiperSlide>
@@ -506,18 +540,28 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
           >
             {projectType === "new-build" ? (
               <div>
-                <motion.p 
+                <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="text-black mb-4 text-[20px]"
-                                  >
+                  className="text-black mb-4 text-[14px] md:text-[16px]"
+                >
                   {safeText(
                     newBuildSummaryText,
                     "We eliminate poor-performing and non-compliant options and score the remaining against the client's priorities. This helps us get clear, evidence-based rationale for the design decisions. We recommend using these outputs to develop brief for architects and engineers"
                   )}
                 </motion.p>
-                <motion.div 
+                 <div className="block md:hidden">
+              <Image
+                src="/assets/images/graph-image-03.png"
+                alt="Five C Zero"
+                className="w-full h-auto"
+                width={1000}
+                height={1000}
+              />
+            </div>
+               <div className="hidden md:block">
+                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
@@ -547,7 +591,7 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                         {newBuildResultCta.text}
                       </Link>
                     ) : (
-                      <motion.button 
+                      <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className="mt-[10px] px-6 py-3 rounded-lg font-medium transition-all duration-200 w-full bg-[#484AB7] text-white border-neutral-200 dark:border-[#484AB7] p-5 max-w-[256px] h-[56px] flex items-center justify-center text[16px] hover:bg-[#3c3f9d] shadow-lg"
@@ -557,23 +601,32 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                     )}
                   </div>
                 </motion.div>
+               </div>
               </div>
             ) : (
               <div>
-                <motion.p 
+                <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="text-black mb-4"
-                                  >
+                  className="text-black mb-4 text-[14px] md:text-[16px]"
+                >
                   {safeText(
                     retrofitIntroText,
                     "We then simulate and compare retrofit pathways:"
                   )}
                 </motion.p>
-              
-                {/* TODO: Add additional content for retrofit if needed */}
-                <motion.div 
+           <div className="block md:hidden">
+           <Image
+                src="/assets/images/graph-image-03.png"
+                alt="Five C Zero"
+                className="w-full h-auto"
+                width={1000}
+                height={1000}
+              />
+            </div>
+               <div className="hidden md:block">
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
@@ -588,10 +641,14 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                   </Suspense>
                   <div className="flex flex-col justify-center items-center mt-[30px]">
                     <p className="text-black text-center mb-[15px]">
-                      {retrofitResultText || "The result: a clear pathway to improvement that's aligned with both project's values and Net Zero goals."}
+                      {retrofitResultText ||
+                        "The result: a clear pathway to improvement that's aligned with both project's values and Net Zero goals."}
                     </p>
-                    <Link href={retrofitButtonUrl || "/projects"} className="mt-[10px] px-6 py-3 rounded-lg font-medium transition-all duration-200 w-full bg-[#484AB7] text-white border-neutral-200 dark:border-[#484AB7] p-5 max-w-[256px] h-[56px] flex items-center justify-center text-[16px] hover:bg-[#3c3f9d] shadow-lg">
-                      <motion.button 
+                    <Link
+                      href={retrofitButtonUrl || "/projects"}
+                      className="mt-[10px] px-6 py-3 rounded-lg font-medium transition-all duration-200 w-full bg-[#484AB7] text-white border-neutral-200 dark:border-[#484AB7] p-5 max-w-[256px] h-[56px] flex items-center justify-center text-[16px] hover:bg-[#3c3f9d] shadow-lg"
+                    >
+                      <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -600,6 +657,7 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                     </Link>
                   </div>
                 </motion.div>
+                </div>
               </div>
             )}
           </motion.div>
@@ -622,7 +680,8 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                 Select a project type to view the optioneering visualization
               </h3>
               <p className="text-gray-500">
-                Choose between New Build or Retrofit to explore different design options and performance scenarios.
+                Choose between New Build or Retrofit to explore different design
+                options and performance scenarios.
               </p>
             </div>
           </motion.div>
@@ -708,7 +767,7 @@ const MainRadarPlot: React.FC<{ data: OptionData[] }> = React.memo(
               },
               radialaxis: {
                 visible: true,
-                showticklabels: false, 
+                showticklabels: false,
                 range: [0, 100],
                 gridcolor: "#ddd",
                 gridwidth: 0.5,
@@ -734,7 +793,7 @@ const MainRadarPlot: React.FC<{ data: OptionData[] }> = React.memo(
       const plotData = makeSubplots();
       console.log("MainRadarPlot data:", plotData?.length, "traces");
       console.log("MainRadarPlot layout:", layout);
-      
+
       return (
         <Plot
           data={plotData}
@@ -800,7 +859,8 @@ const SummaryRadarPlot: React.FC<{ data: OptionData[] }> = React.memo(
             hoverinfo: "text" as const,
             hovertext: generateHoverText(option, index + 1),
             showlegend: false,
-            subplot: index === 0 ? ("polar" as const) : (`polar${index + 1}` as const),
+            subplot:
+              index === 0 ? ("polar" as const) : (`polar${index + 1}` as const),
           };
         }),
       [data]
@@ -915,7 +975,7 @@ const SummaryRadarPlot: React.FC<{ data: OptionData[] }> = React.memo(
     try {
       console.log("SummaryRadarPlot data:", traces?.length, "traces");
       console.log("SummaryRadarPlot layout:", layout);
-      
+
       return (
         <div className="w-full h-[360px] sm:h-[420px]">
           <Plot
@@ -949,7 +1009,7 @@ const safeNormalize = (value: number, min: number, max: number): number =>
   max === min ? 50 : 50 + ((max - value) / (max - min)) * 40;
 
 const getColor = (row: OptionData): string => {
-  if (!row || typeof row.Comfort_metric !== 'number') return "goldenrod";
+  if (!row || typeof row.Comfort_metric !== "number") return "goldenrod";
   if (row.Comfort_metric === -1) return "blue";
 
   const vals = [
@@ -972,7 +1032,9 @@ const rgbaFromColor = (name: string): string => {
 
 // Increase or change the alpha of an rgba color string
 const adjustAlpha = (rgbaColor: string, alpha: number): string => {
-  const match = rgbaColor.match(/rgba?\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([\d.]+))?\)/i);
+  const match = rgbaColor.match(
+    /rgba?\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([\d.]+))?\)/i
+  );
   if (!match) return rgbaColor;
   const r = match[1];
   const g = match[2];
@@ -992,7 +1054,7 @@ const getContrastingTextColor = (rgbaColor: string): string => {
 
 const generateHoverText = (row: OptionData, index: number): string => {
   if (!row) return `<b>Option ${index}</b><br>No data available`;
-  
+
   const comfortLabels: Record<number, string> = {
     [-1]: "Too Cold",
     0: "Comfortable",
@@ -1010,9 +1072,9 @@ const generateHoverText = (row: OptionData, index: number): string => {
 
   return `
     <b>Option ${index}</b><br>
-    Fabric: ${row.Fabric || 'N/A'}<br>
-    Orientation: ${row.Orientation || 'N/A'}<br>
-    User behaviour: ${row.User_behaviour || 'N/A'}<br>
+    Fabric: ${row.Fabric || "N/A"}<br>
+    Orientation: ${row.Orientation || "N/A"}<br>
+    User behaviour: ${row.User_behaviour || "N/A"}<br>
     Compliance: ${complianceLabels[row.Compliance_metric] || "Unknown"}<br>
     Comfort: ${comfortLabels[row.Comfort_metric] || "Unknown"}<br>
     Cost £${Math.round((row.Cost || 0) / 1000)}k<br>
@@ -1024,35 +1086,57 @@ const generateHoverText = (row: OptionData, index: number): string => {
 const processRawData = (jsonData: any[]): OptionData[] => {
   try {
     console.log("processRawData input:", jsonData?.length, "rows");
-    
+
     if (!jsonData || !Array.isArray(jsonData) || jsonData.length === 0) {
       console.log("processRawData: No input data");
       return [];
     }
-    
+
     // Log first few rows to see structure
     console.log("processRawData first row:", jsonData[0]);
-    
-    const carbonValues = jsonData.map((r: any) => r.Carbon).filter(val => typeof val === 'number' && !isNaN(val));
-    const costValues = jsonData.map((r: any) => r.Cost).filter(val => typeof val === 'number' && !isNaN(val));
-    
-    console.log("processRawData carbon values:", carbonValues.length, "valid values");
-    console.log("processRawData cost values:", costValues.length, "valid values");
-    
+
+    const carbonValues = jsonData
+      .map((r: any) => r.Carbon)
+      .filter((val) => typeof val === "number" && !isNaN(val));
+    const costValues = jsonData
+      .map((r: any) => r.Cost)
+      .filter((val) => typeof val === "number" && !isNaN(val));
+
+    console.log(
+      "processRawData carbon values:",
+      carbonValues.length,
+      "valid values"
+    );
+    console.log(
+      "processRawData cost values:",
+      costValues.length,
+      "valid values"
+    );
+
     if (carbonValues.length === 0 || costValues.length === 0) {
       console.log("processRawData: No valid carbon or cost values");
       return [];
     }
-    
+
     const carbonMin = Math.min(...carbonValues);
     const carbonMax = Math.max(...carbonValues);
     const costMin = Math.min(...costValues);
     const costMax = Math.max(...costValues);
-    
-    console.log("processRawData ranges:", { carbonMin, carbonMax, costMin, costMax });
-    
+
+    console.log("processRawData ranges:", {
+      carbonMin,
+      carbonMax,
+      costMin,
+      costMax,
+    });
+
     // If we don't have valid min/max values, return empty array
-    if (isNaN(carbonMin) || isNaN(carbonMax) || isNaN(costMin) || isNaN(costMax)) {
+    if (
+      isNaN(carbonMin) ||
+      isNaN(carbonMax) ||
+      isNaN(costMin) ||
+      isNaN(costMax)
+    ) {
       console.log("processRawData: Invalid min/max values");
       return [];
     }
@@ -1065,7 +1149,11 @@ const processRawData = (jsonData: any[]): OptionData[] => {
             Comfort_metric: item["Comfort - metric"] ?? item["Comfort_metric"],
             Compliance_metric:
               item["Compliance - metric"] ?? item["Compliance_metric"],
-            User_behaviour: item["User behaviour"] ?? item["User_behaviour"] ?? item["User_behavior"] ?? "Standard",
+            User_behaviour:
+              item["User behaviour"] ??
+              item["User_behaviour"] ??
+              item["User_behavior"] ??
+              "Standard",
           };
 
           return {
@@ -1078,22 +1166,35 @@ const processRawData = (jsonData: any[]): OptionData[] => {
             color_tag: "",
           };
         } catch (rowError) {
-          console.error(`processRawData: Error processing row ${index}:`, rowError, item);
+          console.error(
+            `processRawData: Error processing row ${index}:`,
+            rowError,
+            item
+          );
           return null;
         }
       })
       .filter((row) => {
         if (!row) return false;
         return (
-          row.Carbon !== undefined && row.Carbon !== null && !isNaN(row.Carbon) &&
-          row.Cost !== undefined && row.Cost !== null && !isNaN(row.Cost) &&
-          row.Comfort_metric !== undefined && row.Comfort_metric !== null &&
-          row.Circularity !== undefined && row.Circularity !== null && !isNaN(row.Circularity) &&
-          row.Compliance_metric !== undefined && row.Compliance_metric !== null &&
-          row.User_behaviour !== undefined && row.User_behaviour !== null
+          row.Carbon !== undefined &&
+          row.Carbon !== null &&
+          !isNaN(row.Carbon) &&
+          row.Cost !== undefined &&
+          row.Cost !== null &&
+          !isNaN(row.Cost) &&
+          row.Comfort_metric !== undefined &&
+          row.Comfort_metric !== null &&
+          row.Circularity !== undefined &&
+          row.Circularity !== null &&
+          !isNaN(row.Circularity) &&
+          row.Compliance_metric !== undefined &&
+          row.Compliance_metric !== null &&
+          row.User_behaviour !== undefined &&
+          row.User_behaviour !== null
         );
       });
-    
+
     console.log("processRawData output:", processed.length, "valid rows");
     return processed;
   } catch (error) {
@@ -1105,17 +1206,22 @@ const processRawData = (jsonData: any[]): OptionData[] => {
 const sampleAndCombineData = (data: OptionData[]): OptionData[] => {
   try {
     console.log("sampleAndCombineData input:", data?.length, "rows");
-    
+
     if (!data || !Array.isArray(data) || data.length === 0) {
       console.log("sampleAndCombineData: No input data");
       return [];
     }
-  
-    const withColors = data.map((row) => ({ ...row, color_tag: getColor(row) }));
+
+    const withColors = data.map((row) => ({
+      ...row,
+      color_tag: getColor(row),
+    }));
     console.log("sampleAndCombineData: Colors assigned");
 
     const df_red = withColors.filter((r) => r.color_tag === "red").slice(0, 15);
-    const df_blue = withColors.filter((r) => r.color_tag === "blue").slice(0, 10);
+    const df_blue = withColors
+      .filter((r) => r.color_tag === "blue")
+      .slice(0, 10);
     const df_green = withColors
       .filter((r) => r.color_tag === "green")
       .slice(0, 7);
@@ -1127,7 +1233,7 @@ const sampleAndCombineData = (data: OptionData[]): OptionData[] => {
       red: df_red.length,
       blue: df_blue.length,
       green: df_green.length,
-      purple: df_purple.length
+      purple: df_purple.length,
     });
 
     const used = new Set(
@@ -1138,10 +1244,14 @@ const sampleAndCombineData = (data: OptionData[]): OptionData[] => {
       .filter((r) => r.color_tag === "goldenrod" && !used.has(r))
       .slice(0, 16);
 
-    const result = [...df_red, ...df_blue, ...df_green, ...df_purple, ...df_yellow].sort(
-      () => Math.random() - 0.5
-    );
-    
+    const result = [
+      ...df_red,
+      ...df_blue,
+      ...df_green,
+      ...df_purple,
+      ...df_yellow,
+    ].sort(() => Math.random() - 0.5);
+
     console.log("sampleAndCombineData output:", result.length, "rows");
     return result;
   } catch (error) {
@@ -1153,12 +1263,12 @@ const sampleAndCombineData = (data: OptionData[]): OptionData[] => {
 const createSummaryData = (data: OptionData[]): OptionData[] => {
   try {
     console.log("createSummaryData input:", data?.length, "rows");
-    
+
     if (!data || !Array.isArray(data) || data.length === 0) {
       console.log("createSummaryData: No input data");
       return [];
     }
-  
+
     const red = data.find((r) => r.color_tag === "red");
     const blue = data.find((r) => r.color_tag === "blue");
     const yellow = data.find(
@@ -1176,7 +1286,7 @@ const createSummaryData = (data: OptionData[]): OptionData[] => {
       blue: !!blue,
       yellow: !!yellow,
       green: !!green,
-      purple: !!purple
+      purple: !!purple,
     });
 
     // Ensure we always have 3 charts by providing fallbacks

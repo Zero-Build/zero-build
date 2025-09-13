@@ -110,7 +110,9 @@ async function page() {
         />
         <AboutGlobally />
         <TestimonialCard />
-        <CtaSection />
+    <div className="px-[16px]">
+          <CtaSection />
+    </div>
       </div>
     );
     

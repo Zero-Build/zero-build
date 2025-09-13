@@ -40,7 +40,7 @@ export default function AboutProfile({
   linkedinButtonText,
 }: AboutProfileProps) {
   return (
-    <div className="flex flex-col md:flex-row max-w-[1100px] mx-auto px-4 pt-[40px] md:pt-[80px] pb-[40px] md:pb-[80px] gap-8">
+    <div className="flex flex-col md:flex-row max-w-[1100px] mx-auto px-4 pt-[0px] md:pt-[80px] pb-[0px] md:pb-[80px] gap-8">
       {/* Left Image */}
       <div className="flex-shrink-0 w-full md:w-1/3">
         <Image
@@ -58,9 +58,9 @@ export default function AboutProfile({
       {/* Right Text Section */}
       <div className="flex flex-col justify-start md:w-2/3">
         {name && (
-          <h1 className="mb-[20px] md:mb-0 text-[32px] md:text-[40px] lg:text-[48px] font-serif font-medium text-gray-900">
+          <h2 className="mb-[15px] md:mb-0 text-[20px] md:text-[40px] lg:text-[48px] font-serif font-medium text-gray-900">
             {name}
-          </h1>
+          </h2>
         )}
 
         {contactButtonText && contactButtonUrl && (
@@ -68,16 +68,16 @@ export default function AboutProfile({
             href={contactButtonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-[15px] gap-[15px] text-black text-[20px] px-[20px] items-center max-w-[280px] font-bold mb-[24px] rounded-full inline-flex leading-[100%] border border-[#757575] min-h-[44px]"
+            className="mt-0 md:mt-[15px] gap-[15px] text-black text-[16px] md:text-[20px] px-[20px] items-center max-w-[238px] md:max-w-[280px] font-bold mb-[24px] rounded-full inline-flex leading-[100%] border border-[#757575] min-h-[44px]"
           >
             {contactButtonText} <ArrowRight />
           </a>
         )}
 
-        {title && <p className="text-black text-[20px] mb-[8px]">{title}</p>}
+        {title && <p className="text-black text-[14px] md:text-[20px] mb-[8px]">{title}</p>}
 
         {(bio || description) && (
-          <p className="text-gray-700 text-[16px] mb-[15px]">
+          <p className="text-gray-700 text-[14px] md:text-[16px]  mb-0 md:mb-[15px]">
             {bio || description}
           </p>
         )}
@@ -87,7 +87,7 @@ export default function AboutProfile({
             href={linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[24px] text-black hover:underline inline-flex items-center gap-[10px] mt-[24px]"
+            className="text-[16px] md:text-[24px] text-black hover:underline inline-flex items-center gap-[10px] mt-[15px] md:mt-[24px]"
           >
             {linkedinButtonText}
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
