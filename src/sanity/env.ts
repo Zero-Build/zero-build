@@ -25,12 +25,12 @@ export const sanityToken = assertValue(
 );
 
 export const recaptchaSiteKey = assertValue(
-  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdFN5ErAAAAACC9jOKKXt5COxWid-RVuejbWJcS',
+  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6Lewk8grAAAAAAj7TchAc6Yri_y75Aku4QbmXF2y',
   'Missing environment variable: NEXT_PUBLIC_RECAPTCHA_SITE_KEY'
 );
 
 export const recaptchaSecretKey = assertValue(
-  process.env.RECAPTCHA_SECRET_KEY || '6LdFN5ErAAAAAKBWoI-KJb6mJWV8pkXap05hC8Bu',
+  process.env.RECAPTCHA_SECRET_KEY || '6Lewk8grAAAAADpmLHVvjAt9nSZm_8dIXExS0pbK',
   'Missing environment variable: RECAPTCHA_SECRET_KEY'
 );
 
