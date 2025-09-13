@@ -167,10 +167,10 @@ function Footer() {
               <Link href="/cookies">Cookies</Link>
             </li>
             <li>
-              <Link href="/terms">Terms of Use</Link>
+              <Link href="/term-use">Terms of Use</Link>
             </li>
             <li>
-              <Link href="/accessibility">Accessibility Statement</Link>
+              <Link href="/accessibility-statement">Accessibility Statement</Link>
             </li>
           </ul>
         </div>
