@@ -18,7 +18,7 @@ export async function generateMetadata(
   { params }: { params: { slug: string } },
   parent?: ResolvingMetadata
 ): Promise<Metadata> {
-  const { slug } = await params; // params is a Promise in App Router sometimes
+  const { slug } = params; // ❌ no await here
 
   const resource: Resource | null = await getResource(slug);
 
@@ -71,7 +71,7 @@ export default async function Page({
 }: {
   params: { slug: string };
 }) {
-  const { slug } = await params; // ensure proper handling
+  const { slug } = params; // ❌ no await here
 
   const resource: Resource | null = await getResource(slug);
   const resourcesPageBanner = await getResourcesPageBanner();
@@ -207,7 +207,7 @@ export default async function Page({
                     </div>
                   </div>
                 </Link>
-              ))} 
+              ))}
             </div>
           </div>
         </div>
