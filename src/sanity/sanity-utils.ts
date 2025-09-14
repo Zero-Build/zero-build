@@ -14,6 +14,7 @@ import { ProjectsBanner } from "@/types/Project"
 import { PrivacyPolicy } from "@/types/Privacy"
 import { Cookies } from "@/types/Cookies"
 import { TermUse } from "@/types/TermUse"
+import { Accessibility } from "@/types/Accessibility"
 import clientConfig from "./config/client-config";
 import { WorldMapHeader, TestimonialSlider, CTAButton } from "@/types/home";
 
@@ -838,6 +839,39 @@ export async function getTermUse(): Promise<TermUse | null> {
     return result || null;
   } catch (error) {
     console.error("❌ [getTermUse] Error:", error);
+    return null;
+  }
+}
+
+export async function getAccessibility(): Promise<Accessibility | null> {
+  try {
+    const result = await createSanityClient().fetch(
+      groq`*[_type == "accessibility" && isActive == true]{
+        _id,
+        _createdAt,
+        _updatedAt,
+        heading,
+            description[]{
+      ...,
+      _type == "image" => {
+        ...,
+        asset->{
+          _id,
+          url,
+          metadata { 
+            dimensions { width, height }
+          }
+        }
+      }
+    },
+        isActive
+      }[0]`, 
+      {},
+      defaultFetchOptions
+    );
+    return result || null;
+  } catch (error) {
+    console.error("❌ [getAccessibility] Error:", error);
     return null;
   }
 }

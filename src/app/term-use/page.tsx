@@ -95,7 +95,7 @@ function Privacy() {
             </div>
           ) : (
             <div className="text-center text-gray-500">
-              No cookies found.
+              No Term of Use found.
             </div>
           )}
         </div>

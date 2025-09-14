@@ -281,23 +281,31 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-          S.listItem()
-                .title("Privacy Policy")
-                .schemaType("privacypolicy")
-                .child(S.documentTypeList("privacypolicy").title("Privacy Policy")),
+      S.listItem()
+        .title("Privacy Policy")
+        .schemaType("privacypolicy")
+        .child(S.documentTypeList("privacypolicy").title("Privacy Policy")),
 
-                 S.divider(),
+      S.divider(),
 
-          S.listItem()
-                .title("Cookies")
-                .schemaType("cookies")
-                .child(S.documentTypeList("cookies").title("Cookies")),
+      S.listItem()
+        .title("Cookies")
+        .schemaType("cookies")
+        .child(S.documentTypeList("cookies").title("Cookies")),
 
-                    S.divider(),
+      S.divider(),
 
-          S.listItem()
-                .title("Term of Use")
-                .schemaType("termuse")
-                .child(S.documentTypeList("termuse").title("Term of Use")),
-          
+      S.listItem()
+        .title("Term of Use")
+        .schemaType("termuse")
+        .child(S.documentTypeList("termuse").title("Term of Use")),
+
+      S.divider(),
+
+      S.listItem()
+        .title("Accessibility Statement")
+        .schemaType("accessibility")
+        .child(
+          S.documentTypeList("accessibility").title("Accessibility Statement")
+        ),
     ]);
