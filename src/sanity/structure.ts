@@ -292,5 +292,12 @@ export const structure: StructureResolver = (S) =>
                 .title("Cookies")
                 .schemaType("cookies")
                 .child(S.documentTypeList("cookies").title("Cookies")),
+
+                    S.divider(),
+
+          S.listItem()
+                .title("Term of Use")
+                .schemaType("termuse")
+                .child(S.documentTypeList("termuse").title("Term of Use")),
           
     ]);

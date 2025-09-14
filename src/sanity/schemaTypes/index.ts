@@ -22,6 +22,7 @@ import { ctaBoxType } from './ctaSidebarBox-schema';
 import { copyrightType } from './copyright-schema';
 import { privacyType } from './privacy-page-schema';
 import { cookiesType } from './cookies-page-schema';
+import { termuseType } from './term-page-schema';
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     serviceType,
@@ -45,6 +46,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     contactPageType,
     copyrightType,
     privacyType,
-    cookiesType
+    cookiesType,
+    termuseType
   ],
 } 

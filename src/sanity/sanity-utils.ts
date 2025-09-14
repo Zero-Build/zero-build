@@ -13,6 +13,7 @@ import { CopyRight } from "@/types/Footer"
 import { ProjectsBanner } from "@/types/Project"
 import { PrivacyPolicy } from "@/types/Privacy"
 import { Cookies } from "@/types/Cookies"
+import { TermUse } from "@/types/TermUse"
 import clientConfig from "./config/client-config";
 import { WorldMapHeader, TestimonialSlider, CTAButton } from "@/types/home";
 
@@ -807,4 +808,38 @@ export async function getCookies(): Promise<Cookies | null> {
     return null;
   }
 }
+
+export async function getTermUse(): Promise<TermUse | null> {
+  try {
+    const result = await createSanityClient().fetch(
+      groq`*[_type == "termuse" && isActive == true]{
+        _id,
+        _createdAt,
+        _updatedAt,
+        heading,
+            description[]{
+      ...,
+      _type == "image" => {
+        ...,
+        asset->{
+          _id,
+          url,
+          metadata { 
+            dimensions { width, height }
+          }
+        }
+      }
+    },
+        isActive
+      }[0]`, 
+      {},
+      defaultFetchOptions
+    );
+    return result || null;
+  } catch (error) {
+    console.error("❌ [getTermUse] Error:", error);
+    return null;
+  }
+}
+
 
