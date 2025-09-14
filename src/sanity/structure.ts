@@ -190,7 +190,6 @@ export const structure: StructureResolver = (S) =>
             ])
         ),
 
-    
       S.divider(),
 
       // Resource
@@ -218,9 +217,9 @@ export const structure: StructureResolver = (S) =>
                 ),
             ])
         ),
-  S.divider(),
+      S.divider(),
 
-          // Global
+      // Global
       S.listItem()
         .title("Global Sections")
         .child(
@@ -251,13 +250,12 @@ export const structure: StructureResolver = (S) =>
                         ),
                     ])
                 ),
-           
             ])
         ),
 
-          S.divider(),
+      S.divider(),
 
-                // Global
+      // Global
       S.listItem()
         .title("Footer")
         .child(
@@ -266,7 +264,11 @@ export const structure: StructureResolver = (S) =>
             .items([
               S.listItem()
                 .title("CopyRight")
-                .child(S.document().schemaType("copyright").documentId("copyrightSection")),
+                .child(
+                  S.document()
+                    .schemaType("copyright")
+                    .documentId("copyrightSection")
+                ),
 
               S.divider(),
               S.listItem()
@@ -275,5 +277,20 @@ export const structure: StructureResolver = (S) =>
                   S.document().schemaType("company").documentId("company")
                 ),
             ])
-        ), 
+        ),
+
+      S.divider(),
+
+          S.listItem()
+                .title("Privacy Policy")
+                .schemaType("privacypolicy")
+                .child(S.documentTypeList("privacypolicy").title("Privacy Policy")),
+
+                 S.divider(),
+
+          S.listItem()
+                .title("Cookies")
+                .schemaType("cookies")
+                .child(S.documentTypeList("cookies").title("Cookies")),
+          
     ]);

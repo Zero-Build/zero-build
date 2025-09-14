@@ -20,6 +20,8 @@ import { testimonialType } from './testimonial-schema';
 import { ctaType } from './cta-schema';
 import { ctaBoxType } from './ctaSidebarBox-schema';
 import { copyrightType } from './copyright-schema';
+import { privacyType } from './privacy-page-schema';
+import { cookiesType } from './cookies-page-schema';
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     serviceType,
@@ -42,5 +44,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     aboutPageType,
     contactPageType,
     copyrightType,
+    privacyType,
+    cookiesType
   ],
 } 

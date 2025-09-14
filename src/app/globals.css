@@ -229,6 +229,9 @@ a {
 .polarsublayer.radial-axis {
   display: none !important;
 }
+.unique-graph .polar{
+  transform: translate(12px, 27px);
+}
 .angularaxistick {
   display: none !important;
 }

@@ -421,7 +421,7 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                 height={1000}
               />
             </div>
-            <div className="hidden md:block">
+            <div className="hidden md:block unique-graph">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}

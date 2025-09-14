@@ -11,6 +11,8 @@ import { ContactPageBanner } from "@/types/Contact";
 import { ResourcesPageBanner } from "@/types/resourcesPage";
 import { CopyRight } from "@/types/Footer"
 import { ProjectsBanner } from "@/types/Project"
+import { PrivacyPolicy } from "@/types/Privacy"
+import { Cookies } from "@/types/Cookies"
 import clientConfig from "./config/client-config";
 import { WorldMapHeader, TestimonialSlider, CTAButton } from "@/types/home";
 
@@ -740,7 +742,69 @@ export async function getCopyRight(): Promise<CopyRight | null> {
   }
 }
 
+export async function getPrivacyPolicy(): Promise<PrivacyPolicy | null> {
+  try {
+    const result = await createSanityClient().fetch(
+      groq`*[_type == "privacypolicy" && isActive == true]{
+        _id,
+        _createdAt,
+        _updatedAt,
+        heading,
+            description[]{
+      ...,
+      _type == "image" => {
+        ...,
+        asset->{
+          _id,
+          url,
+          metadata { 
+            dimensions { width, height }
+          }
+        }
+      }
+    },
+        isActive
+      }[0]`, 
+      {},
+      defaultFetchOptions
+    );
+    return result || null;
+  } catch (error) {
+    console.error("❌ [getPrivacyPolicy] Error:", error);
+    return null;
+  }
+}
 
-
-
+export async function getCookies(): Promise<Cookies | null> {
+  try {
+    const result = await createSanityClient().fetch(
+      groq`*[_type == "cookies" && isActive == true]{
+        _id,
+        _createdAt,
+        _updatedAt,
+        heading,
+            description[]{
+      ...,
+      _type == "image" => {
+        ...,
+        asset->{
+          _id,
+          url,
+          metadata { 
+            dimensions { width, height }
+          }
+        }
+      }
+    },
+        isActive
+      }[0]`, 
+      {},
+      defaultFetchOptions
+    );
+    return result || null;
+  } catch (error) {
+    console.error("❌ [getCookies] Error:", error);
+    return null;
+  }
+}
 
