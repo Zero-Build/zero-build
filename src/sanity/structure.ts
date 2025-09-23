@@ -123,7 +123,7 @@ export const structure: StructureResolver = (S) =>
                 .title("Service List")
                 .schemaType("service")
                 .child(
-                  S.documentTypeList("servicesBanner").title("Service List")
+                  S.documentTypeList("service").title("Service List")
                 ),
               // CTA Sidebar Box
               S.listItem()
