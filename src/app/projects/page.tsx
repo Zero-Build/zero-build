@@ -132,7 +132,7 @@ export default function Page() {
                       alt={project.title}
                       width={900}
                       height={400}
-                      className="w-full h-[250px] md:h-[400px] object-cover rounded-xl"
+                      className="w-full h-[250px] lg:h-[600px] md:h-[400px] object-cover rounded-xl"
                     />
                   </Link>
                   {activeIndex === idx && (

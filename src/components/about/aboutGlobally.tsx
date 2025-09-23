@@ -22,8 +22,8 @@ function AboutGloballyCard() {
   if (!aboutPage) return null; 
 
   return (
-    <div className="w-full relative flex flex-col items-center justify-center overflow-hidden max-w-[920px] px-[16px] mt-[20px] md:mt-0">
-      <div className="flex justify-center w-full overflow-hidden px-0 sm:px-6 lg:px-8 mb-[50px]">
+    <div className="w-full relative flex flex-col items-center justify-center overflow-hidden container mx-auto px-[16px] mt-[20px] md:mt-0">
+      <div className="flex justify-center w-full overflow-hidden mb-[50px]">
         <div className="w-full">
           <h2 className="text-black font-semibold text-[20px] md:text-[32px] mb-[10px]">
             {aboutPage.globallyTitle}
