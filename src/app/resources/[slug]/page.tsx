@@ -141,7 +141,7 @@ export default async function Page({
           )}
 
           {resource.body && (
-            <div className="prose max-w-none mt-0 md:mt-8 text-black mb-[48px]">
+            <div className="prose max-w-none mt-0 md:mt-8 text-black mb-[48px] service-body-content">
               <PortableText value={resource.body} />
             </div>
           )}

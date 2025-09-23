@@ -257,4 +257,7 @@ a {
   .service-body-content h3 {
     font-size: 18px;
   }
+  .detail-accordian ul{
+     font-size: 14px;
+  }
 }
