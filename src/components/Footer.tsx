@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
@@ -288,8 +288,7 @@ function Footer() {
           {isLoading ? (
             <Skeleton className="h-3 w-48 mx-auto" inline />
           ) : (
-            copyright?.text ||
-            `© ${new Date().getFullYear()} ZeroBuild. All rights reserved.`
+            copyright?.text 
           )}
         </p>
       </div>
