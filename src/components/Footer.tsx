@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -45,7 +43,7 @@ function Footer() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [copyright, setCopyright] = useState<CopyRight | null>(null);
   const [services, setServices] = useState<
-    Pick<Service, "_id" | "title" | "slug" | "publishedAt">[]
+    Pick<Service, "_id" | "title" | "slug">[]
   >([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -288,7 +286,7 @@ function Footer() {
           {isLoading ? (
             <Skeleton className="h-3 w-48 mx-auto" inline />
           ) : (
-            copyright?.text 
+            copyright?.text || "© 2024 ZeroBuild. All rights reserved."
           )}
         </p>
       </div>
