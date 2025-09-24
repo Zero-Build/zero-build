@@ -5,7 +5,6 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("Content")
     .items([
-      // Divider (optional)
       S.divider(),
 
       // Home Section
@@ -45,7 +44,7 @@ export const structure: StructureResolver = (S) =>
                         .child(
                           S.document()
                             .schemaType("featureMainHeading")
-                            .documentId("featureMainHeadings")
+                            .documentId("featureMainHeading")
                         ),
 
                       S.divider(),
@@ -81,18 +80,17 @@ export const structure: StructureResolver = (S) =>
                   S.list()
                     .title("WorldMap Section")
                     .items([
-                      // WorldMap Heading (single doc)
                       S.listItem()
                         .title("WorldMap Heading")
                         .child(
                           S.document()
                             .schemaType("worldMapHeading")
-                            .documentId("WorldMapHeadings")
+                            .documentId("worldMapHeading")
                         ),
                     ])
                 ),
 
-                  S.divider(),
+              S.divider(),
 
               // Testimonial Section
               S.listItem()
@@ -101,7 +99,6 @@ export const structure: StructureResolver = (S) =>
                   S.list()
                     .title("Testimonial Section")
                     .items([
-                      // Testimonial Slides (multi docs)
                       S.listItem()
                         .title("Testimonial Slides")
                         .schemaType("testimonialSlider")
@@ -115,19 +112,44 @@ export const structure: StructureResolver = (S) =>
             ])
         ),
 
-
-
-
       S.divider(),
 
+      // About Section
       S.listItem()
         .title("About")
-        .schemaType("about")
-        .child(S.documentTypeList("about").title("About Us Page")),
-      // Divider (optional)
+        .child(
+          S.list()
+            .title("About")
+            .items([
+              S.listItem()
+                .title("About Us Page")
+                .schemaType("about")
+                .child(S.documentTypeList("about").title("About Us Page")),
+                S.divider(),
+
+              // Testimonial Section
+              S.listItem()
+                .title("Testimonial Section")
+                .child(
+                  S.list()
+                    .title("Testimonial Section")
+                    .items([
+                      S.listItem()
+                        .title("Testimonial Slides")
+                        .schemaType("testimonialSliderAbout")
+                        .child(
+                          S.documentTypeList("testimonialSliderAbout")
+                            .title("Testimonial Slides")
+                            .filter('_type == "testimonialSliderAbout"')
+                        ),
+                    ])
+                ),
+            ])
+        ),
+
       S.divider(),
 
-      // Resource
+      // Service Section
       S.listItem()
         .title("Service")
         .child(
@@ -139,7 +161,7 @@ export const structure: StructureResolver = (S) =>
                 .child(
                   S.document()
                     .schemaType("servicesBanner")
-                    .documentId("servicesBanners")
+                    .documentId("servicesBanner")
                 ),
 
               S.divider(),
@@ -147,10 +169,10 @@ export const structure: StructureResolver = (S) =>
               S.listItem()
                 .title("Service List")
                 .schemaType("service")
-                .child(
-                  S.documentTypeList("service").title("Service List")
-                ),
-              // CTA Sidebar Box
+                .child(S.documentTypeList("service").title("Service List")),
+
+              S.divider(),
+
               S.listItem()
                 .title("CTA Sidebar Box")
                 .schemaType("ctaSidebarBox")
@@ -161,7 +183,9 @@ export const structure: StructureResolver = (S) =>
                 ),
             ])
         ),
+
       S.divider(),
+
       // Projects
       S.listItem()
         .title("Projects")
@@ -169,7 +193,6 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title("Projects")
             .items([
-              // Projects Page Banner (single document)
               S.listItem()
                 .title("Projects Page Banner")
                 .child(
@@ -180,7 +203,6 @@ export const structure: StructureResolver = (S) =>
 
               S.divider(),
 
-              // Projects (multiple docs)
               S.listItem()
                 .title("Project List")
                 .schemaType("project")
@@ -188,7 +210,6 @@ export const structure: StructureResolver = (S) =>
             ])
         ),
 
-      // Divider (optional)
       S.divider(),
 
       // Resource
@@ -217,7 +238,7 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // Resource
+      // Contact Page
       S.listItem()
         .title("Contact Page")
         .child(
@@ -242,9 +263,10 @@ export const structure: StructureResolver = (S) =>
                 ),
             ])
         ),
+
       S.divider(),
 
-      // Global
+      // Global Sections - CTA
       S.listItem()
         .title("Global Sections")
         .child(
@@ -259,7 +281,7 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // Global
+      // Footer
       S.listItem()
         .title("Footer")
         .child(
@@ -275,6 +297,7 @@ export const structure: StructureResolver = (S) =>
                 ),
 
               S.divider(),
+
               S.listItem()
                 .title("Company Information")
                 .child(
@@ -285,6 +308,7 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Privacy Policy
       S.listItem()
         .title("Privacy Policy")
         .schemaType("privacypolicy")
@@ -292,6 +316,7 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Cookies
       S.listItem()
         .title("Cookies")
         .schemaType("cookies")
@@ -299,6 +324,7 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Terms of Use
       S.listItem()
         .title("Term of Use")
         .schemaType("termuse")
@@ -306,6 +332,7 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Accessibility Statement
       S.listItem()
         .title("Accessibility Statement")
         .schemaType("accessibility")

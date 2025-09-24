@@ -23,7 +23,8 @@ import { copyrightType } from './copyright-schema';
 import { privacyType } from './privacy-page-schema';
 import { cookiesType } from './cookies-page-schema';
 import { termuseType } from './term-page-schema';
-import { accessibilityType } from './accessibility-page-schema'
+import { accessibilityType } from './accessibility-page-schema';
+import { testimonialAboutType } from './testimonial-about-schema';
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     serviceType,
@@ -49,6 +50,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     privacyType,
     cookiesType,
     termuseType,
-    accessibilityType
+    accessibilityType,
+    testimonialAboutType
   ],
 } 

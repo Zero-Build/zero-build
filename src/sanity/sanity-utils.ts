@@ -161,7 +161,7 @@ export async function getAbout(): Promise<AboutPage[]> {
 export async function getTestimonialSliderAbout(): Promise<TestimonialSliderAbout[]> {
   try {
     const result = await createSanityClient().fetch(
-      groq`*[_type == "testimonialSlider" && isActive == true] | order(_updatedAt desc) {
+      groq`*[_type == "testimonialSliderAbout" && isActive == true] | order(_updatedAt desc) {
         _id,
         _createdAt,
         _updatedAt,
@@ -184,10 +184,10 @@ export async function getTestimonialSliderAbout(): Promise<TestimonialSliderAbou
       {},
       defaultFetchOptions
     );
-    console.log("✅ [getTestimonialSlider] Testimonial Slider fetched:", result?.length || 0);
+    console.log("✅ [getTestimonialSliderAbout] Testimonial Slider fetched:", result?.length || 0);
     return result || [];
   } catch (error) {
-    console.error("❌ [getTestimonialSlider] Error:", error);
+    console.error("❌ [getTestimonialSliderAbout] Error:", error);
     return [];
   }
 }
