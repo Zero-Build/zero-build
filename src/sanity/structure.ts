@@ -91,8 +91,33 @@ export const structure: StructureResolver = (S) =>
                         ),
                     ])
                 ),
+
+                  S.divider(),
+
+              // Testimonial Section
+              S.listItem()
+                .title("Testimonial Section")
+                .child(
+                  S.list()
+                    .title("Testimonial Section")
+                    .items([
+                      // Testimonial Slides (multi docs)
+                      S.listItem()
+                        .title("Testimonial Slides")
+                        .schemaType("testimonialSlider")
+                        .child(
+                          S.documentTypeList("testimonialSlider")
+                            .title("Testimonial Slides")
+                            .filter('_type == "testimonialSlider"')
+                        ),
+                    ])
+                ),
             ])
         ),
+
+
+
+
       S.divider(),
 
       S.listItem()
@@ -229,27 +254,6 @@ export const structure: StructureResolver = (S) =>
               S.listItem()
                 .title("CTA Section")
                 .child(S.document().schemaType("cta").documentId("ctaSection")),
-
-              S.divider(),
-
-              // Testimonial Section
-              S.listItem()
-                .title("Testimonial Section")
-                .child(
-                  S.list()
-                    .title("Testimonial Section")
-                    .items([
-                      // Testimonial Slides (multi docs)
-                      S.listItem()
-                        .title("Testimonial Slides")
-                        .schemaType("testimonialSlider")
-                        .child(
-                          S.documentTypeList("testimonialSlider")
-                            .title("Testimonial Slides")
-                            .filter('_type == "testimonialSlider"')
-                        ),
-                    ])
-                ),
             ])
         ),
 
