@@ -1,5 +1,5 @@
 import { createClient, groq } from "next-sanity";
-import { AboutPage } from "@/types/aboutPage";
+import { AboutPage, TestimonialSliderAbout } from "@/types/aboutPage";
 import { Service, CtaBox } from "@/types/Service";
 import { Project } from "@/types/Project";
 import { Resource } from "@/types/Resource";
@@ -157,6 +157,40 @@ export async function getAbout(): Promise<AboutPage[]> {
   }
 }
 
+/* ---------------- Testimonial ---------------- */
+export async function getTestimonialSliderAbout(): Promise<TestimonialSliderAbout[]> {
+  try {
+    const result = await createSanityClient().fetch(
+      groq`*[_type == "testimonialSlider" && isActive == true] | order(_updatedAt desc) {
+        _id,
+        _createdAt,
+        _updatedAt,
+        title,
+        address,
+        description,  
+        isActive,
+        image {
+          asset->{
+            _id,
+            url,
+            metadata { 
+              dimensions, 
+              lqip 
+            }
+          },
+          alt
+        }
+      }`,
+      {},
+      defaultFetchOptions
+    );
+    console.log("✅ [getTestimonialSlider] Testimonial Slider fetched:", result?.length || 0);
+    return result || [];
+  } catch (error) {
+    console.error("❌ [getTestimonialSlider] Error:", error);
+    return [];
+  }
+}
 /* ---------------- SERVICES ---------------- */
 export async function getServices(): Promise<Service[]> {
   try {

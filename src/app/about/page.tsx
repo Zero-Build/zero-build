@@ -1,5 +1,5 @@
 import React from "react";
-import TestimonialCard from "@/components/TestimonialCard";
+import TestimonialCard from "@/components/about/TestimonialCard";
 import AboutProfile from "@/components/about/aboutProfile";
 import ObservabilityRadarChart from "@/components/ObservabilityRadarChart";
 import AboutTop from "@/components/about/aboutTop";

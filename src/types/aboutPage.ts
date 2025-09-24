@@ -47,3 +47,22 @@ export interface AboutPage {
   globallyTitle?: string;
   globallyDescription?: string;
 }
+
+export interface SanityImage {
+  _type: "image";
+  asset: {
+    _ref: string;
+    _type: "reference";
+  };
+  alt?: string;
+}
+
+export interface TestimonialSliderAbout {
+  _id: string;
+  _createdAt: string;
+  title: string;
+  address: string;
+  description: string;
+  isActive: boolean;
+  image?: SanityImage; 
+}
