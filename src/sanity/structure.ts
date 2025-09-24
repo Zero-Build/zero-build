@@ -303,10 +303,7 @@ export const structure: StructureResolver = (S) =>
                 .child(
                   S.document().schemaType("company").documentId("company")
                 ),
-            ])
-        ),
-
-      S.divider(),
+                   S.divider(),
 
       // Privacy Policy
       S.listItem()
@@ -339,4 +336,8 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.documentTypeList("accessibility").title("Accessibility Statement")
         ),
+            ])
+        ),
+
+   
     ]);
