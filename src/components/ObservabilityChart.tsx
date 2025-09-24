@@ -340,7 +340,7 @@ const ComplianceHoverCard = ({
           <div
             className={`${isMobile ? "text-[10px]" : "text-xs"} text-gray-500`}
           >
-            Level {complianceLevel} • {dataPoint.Fabric}
+             Fabric: {dataPoint.Fabric}
           </div>
         </div>
       </div>
