@@ -4,7 +4,7 @@ import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 import { getTestimonialSliderAbout } from "@/sanity/sanity-utils";
 import { TestimonialSliderAbout } from "@/types/aboutPage";
 
-function TestimonialCard() {
+function TestimonialAboutCard() {
   const [testimonials, setTestimonials] = useState<
     { title: string; address: string; description: string; image?: string }[]
   >([]);
@@ -45,4 +45,4 @@ function TestimonialCard() {
   );
 }
 
-export default TestimonialCard;
+export default TestimonialAboutCard;

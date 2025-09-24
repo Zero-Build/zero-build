@@ -129,17 +129,17 @@ export const structure: StructureResolver = (S) =>
 
               // Testimonial Section
               S.listItem()
-                .title("Testimonial Section")
+                .title("Testimonial About Section")
                 .child(
                   S.list()
-                    .title("Testimonial Section")
+                    .title("Testimonial About Section")
                     .items([
                       S.listItem()
-                        .title("Testimonial Slides")
+                        .title("Testimonial About Slides")
                         .schemaType("testimonialSliderAbout")
                         .child(
                           S.documentTypeList("testimonialSliderAbout")
-                            .title("Testimonial Slides")
+                            .title("Testimonial About Slides")
                             .filter('_type == "testimonialSliderAbout"')
                         ),
                     ])
