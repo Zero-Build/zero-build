@@ -335,7 +335,7 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 pt-8">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -639,7 +639,10 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                       <ChartSkeleton />
                     )}
                   </Suspense>
-                  <div className="flex flex-col justify-center items-center mt-[30px]">
+                 
+                </motion.div>
+                </div>
+                 <div className="flex flex-col justify-center items-center mt-[30px]">
                     <p className="text-black text-center mb-[15px]">
                       {retrofitResultText ||
                         "The result: a clear pathway to improvement that's aligned with both project's values and Net Zero goals."}
@@ -656,8 +659,6 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                       </motion.button>
                     </Link>
                   </div>
-                </motion.div>
-                </div>
               </div>
             )}
           </motion.div>

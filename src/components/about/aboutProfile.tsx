@@ -41,7 +41,7 @@ export default function AboutProfile({
   return (
     <div className="pt-[0px] md:pt-[80px]">
       <div className="container mx-auto">
-        <h2 className="mb-[25px]  text-[20px] md:text-[28px]  lg:text-[32px] font-serif font-medium text-gray-900 px-[16px]">
+        <h2 className="mb-[25px]  text-[20px] md:text-[28px]  lg:text-[32px] font-medium text-gray-900 px-[16px]">
           Meet the Founder
         </h2>
       </div>
