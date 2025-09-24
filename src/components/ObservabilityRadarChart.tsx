@@ -576,7 +576,10 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                       )}
                     </Suspense>
                   </div>
-                  <div className="flex flex-col justify-center items-center mt-[30px]">
+                 
+                </motion.div>
+               </div>
+                <div className="flex flex-col justify-center items-center my-[30px]">
                     <p className="text-black text-center mb-[15px]">
                       {safeText(
                         newBuildResultText,
@@ -600,8 +603,6 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                       </motion.button>
                     )}
                   </div>
-                </motion.div>
-               </div>
               </div>
             ) : (
               <div>
@@ -642,7 +643,7 @@ const OptioneeringVisualization: React.FC<ObservabilityRadarChartProps> = ({
                  
                 </motion.div>
                 </div>
-                 <div className="flex flex-col justify-center items-center mt-[30px]">
+                 <div className="flex flex-col justify-center items-center my-[30px]">
                     <p className="text-black text-center mb-[15px]">
                       {retrofitResultText ||
                         "The result: a clear pathway to improvement that's aligned with both project's values and Net Zero goals."}
