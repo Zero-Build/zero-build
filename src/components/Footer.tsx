@@ -288,7 +288,7 @@ function Footer() {
           {isLoading ? (
             <Skeleton className="h-3 w-48 mx-auto" inline />
           ) : (
-            copyright?.name ||
+            copyright?.text ||
             `© ${new Date().getFullYear()} ZeroBuild. All rights reserved.`
           )}
         </p>

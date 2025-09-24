@@ -125,7 +125,7 @@ export const structure: StructureResolver = (S) =>
                 .title("About Us Page")
                 .schemaType("about")
                 .child(S.documentTypeList("about").title("About Us Page")),
-                S.divider(),
+              S.divider(),
 
               // Testimonial Section
               S.listItem()
@@ -286,8 +286,51 @@ export const structure: StructureResolver = (S) =>
         .title("Footer")
         .child(
           S.list()
-            .title("CopyRight Section")
+            .title("Footer Section")
             .items([
+              S.listItem()
+                .title("Company Information")
+                .child(
+                  S.document().schemaType("company").documentId("company")
+                ),
+              S.divider(),
+
+              // Privacy Policy
+              S.listItem()
+                .title("Privacy Policy")
+                .schemaType("privacypolicy")
+                .child(
+                  S.documentTypeList("privacypolicy").title("Privacy Policy")
+                ),
+
+              S.divider(),
+
+              // Cookies
+              S.listItem()
+                .title("Cookies")
+                .schemaType("cookies")
+                .child(S.documentTypeList("cookies").title("Cookies")),
+
+              S.divider(),
+
+              // Terms of Use
+              S.listItem()
+                .title("Term of Use")
+                .schemaType("termuse")
+                .child(S.documentTypeList("termuse").title("Term of Use")),
+
+              S.divider(),
+
+              // Accessibility Statement
+              S.listItem()
+                .title("Accessibility Statement")
+                .schemaType("accessibility")
+                .child(
+                  S.documentTypeList("accessibility").title(
+                    "Accessibility Statement"
+                  )
+                ),
+              S.divider(),
               S.listItem()
                 .title("CopyRight")
                 .child(
@@ -295,49 +338,6 @@ export const structure: StructureResolver = (S) =>
                     .schemaType("copyright")
                     .documentId("copyrightSection")
                 ),
-
-              S.divider(),
-
-              S.listItem()
-                .title("Company Information")
-                .child(
-                  S.document().schemaType("company").documentId("company")
-                ),
-                   S.divider(),
-
-      // Privacy Policy
-      S.listItem()
-        .title("Privacy Policy")
-        .schemaType("privacypolicy")
-        .child(S.documentTypeList("privacypolicy").title("Privacy Policy")),
-
-      S.divider(),
-
-      // Cookies
-      S.listItem()
-        .title("Cookies")
-        .schemaType("cookies")
-        .child(S.documentTypeList("cookies").title("Cookies")),
-
-      S.divider(),
-
-      // Terms of Use
-      S.listItem()
-        .title("Term of Use")
-        .schemaType("termuse")
-        .child(S.documentTypeList("termuse").title("Term of Use")),
-
-      S.divider(),
-
-      // Accessibility Statement
-      S.listItem()
-        .title("Accessibility Statement")
-        .schemaType("accessibility")
-        .child(
-          S.documentTypeList("accessibility").title("Accessibility Statement")
-        ),
             ])
         ),
-
-   
     ]);

@@ -1,6 +1,6 @@
 export interface CopyRight {
   _id: string;
-  name: string;
+  text: string;
   isActive: boolean;
 }
 
